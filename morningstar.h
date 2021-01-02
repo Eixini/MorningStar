@@ -1,0 +1,41 @@
+#ifndef MORNINGSTAR_H
+#define MORNINGSTAR_H
+
+#include <QApplication>
+#include <QWidget>
+#include <QVBoxLayout>
+#include <QAbstractButton>
+#include <QPushButton>
+#include <QIcon>
+#include <QWindow>
+
+#include "info.h"
+#include "randnum.h"
+
+class MorningStar : public QWidget
+{
+    Q_OBJECT
+
+public:
+    MorningStar(QWidget *parent = nullptr);
+    ~MorningStar();
+
+
+public slots:
+
+    void showInfo(); // для создания окна с отображением информации
+    void showRand(); // для создания окна с генерацией случайного числа
+
+private:
+
+    QPushButton *nettime; // создание объекта кнопки для получение точного времени из интернета
+    QPushButton *note; // создание объекта кнопки для создания заметки
+    QPushButton *timer; // создание объекта кнопки для таймера
+    QPushButton *randnum; // создание объкта кнопки для виджета с генерацией случайного числа в заданном диапозоне
+    QPushButton *info; // создание объекта кнопки для виджета с информацией о приложении
+    QPushButton * quit; // создание объекта кнопки для выходу из приложения
+
+
+
+};
+#endif // MORNINGSTAR_H

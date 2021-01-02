@@ -1,0 +1,93 @@
+#include "morningstar.h"
+
+MorningStar::MorningStar(QWidget *parent)
+    : QWidget(parent)
+{
+
+   QVBoxLayout *vbox = new QVBoxLayout(this); // создание вертикального компоновщика
+   vbox->setSpacing(3); // Установка расстояния между
+
+   // +++++++++++++++++++++++++++  Создание кнопок и установка их размера  ++++++++++++++++++++++++++++++++++++++++++++++
+
+   nettime = new QPushButton("Точное время", this); // создание кнопки для получения точного времени из интернета
+   nettime->setSizePolicy(QSizePolicy::Expanding , QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
+   nettime->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Image_for_App/icons/clock_icon")); // устанавливает иконку в кнопку
+
+   note = new QPushButton("Заметки", this); // создание кнопки для меню заметок
+   note->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
+   note->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Image_for_App/icons/clipboard_icon")); // устанавливает иконку в кнопку
+
+   timer = new QPushButton("Таймер", this); // создание кнопки для установки таймера
+   timer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
+   timer->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Image_for_App/icons/timer_icon")); // устанавливает иконку в кнопку
+
+   randnum = new QPushButton("Случайное число", this); // создание кнопки для генерации случайного числа в настраиваемом диапозоне
+   randnum->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
+   randnum->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Image_for_App/icons/ball_icon")); // устанавливает иконку в кнопку
+
+   info = new QPushButton("О Приложении", this); // создание кнопки для вывода информации о приложении
+   info->setSizePolicy(QSizePolicy::Expanding , QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
+   info->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Image_for_App/icons/info_icon")); // устанавливает иконку в кнопку
+
+   quit = new QPushButton("Выход", this); // создание кнопки для выхода из приложения
+   quit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
+   quit->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Image_for_App/icons/door_icon")); // установка иконки для кнопки
+   quit->setShortcut(tr("Alt+Q")); // установка горячей клавиши для кнопки выхода, при нажатии комбинации Alt+
+
+
+   // -------------------------------------------------------------------------------------------------------------------
+
+
+
+   // ================================= Настройка кнопки выхода из приложения ============================================
+
+   connect(quit, &QPushButton::clicked, qApp, &QApplication::quit); // при нажатии на кнопку "Выход" приложение будет закрываться
+
+   connect(info, &QPushButton::clicked, this, &MorningStar::showInfo);
+   connect(randnum, &QPushButton::clicked, this, &MorningStar::showRand);
+
+   // ++++++++++++++++++++++++++++  Добавление кнопок в вертикальный компоновщик  ++++++++++++++++++++++++++++++++++++++++
+
+    vbox->addWidget(nettime);
+    vbox->addWidget(note);
+    vbox->addWidget(timer);
+    vbox->addWidget(randnum);
+    vbox->addWidget(info);
+    vbox->addWidget(quit);
+
+
+   setLayout(vbox); // установка вертикального компоновщика (в качестве главного) на главное окно
+
+
+}
+
+void MorningStar::showInfo()
+{
+    class info infoWin;
+
+    infoWin.setModal(true);
+    infoWin.setFixedSize(280,180); // установка фиксированного размера
+    infoWin.setWindowTitle("О Приложении"); // установка заголовка окна
+    infoWin.setWindowIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Image_for_App/icons/info_icon")); // Установка иконки для окна
+
+    infoWin.exec();
+}
+
+void MorningStar::showRand()
+{
+    class randnum randWin;
+
+    randWin.setModal(true);
+    randWin.setWindowTitle("Случайное число"); // Установка заголовка для окна
+    randWin.setWindowIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Image_for_App/icons/ball_icon")); // установка иконки для окна
+    randWin.setFixedSize(250,180); // установка фиксированного размера
+
+
+
+    randWin.exec();
+}
+
+MorningStar::~MorningStar()
+{
+}
+
