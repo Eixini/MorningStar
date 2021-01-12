@@ -8,9 +8,15 @@
 #include <QPushButton>
 #include <QIcon>
 #include <QWindow>
+#include <QFile>
+#include <QSettings>
 
+#include "settings.h"
 #include "info.h"
 #include "randnum.h"
+#include "timer.h"
+#include "note.h"
+#include "nettime.h"
 
 class MorningStar : public QWidget
 {
@@ -23,8 +29,12 @@ public:
 
 public slots:
 
+    void showSettings(); // для создания окна с настройками
     void showInfo(); // для создания окна с отображением информации
     void showRand(); // для создания окна с генерацией случайного числа
+    void showTimer(); // для создания окна с установкой таймера
+    void showNote(); // для создания окна со списком заметок
+    void showNettime(); // для создания окна для получения точного времени из Интернета
 
 private:
 
@@ -33,7 +43,8 @@ private:
     QPushButton *timer; // создание объекта кнопки для таймера
     QPushButton *randnum; // создание объкта кнопки для виджета с генерацией случайного числа в заданном диапозоне
     QPushButton *info; // создание объекта кнопки для виджета с информацией о приложении
-    QPushButton * quit; // создание объекта кнопки для выходу из приложения
+    QPushButton *settings;
+    QPushButton *quit; // создание объекта кнопки для выходу из приложения
 
 
 

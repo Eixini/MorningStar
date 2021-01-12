@@ -33,11 +33,23 @@ if(ANDROID)
     morningstar.cpp
     morningstar.h
 
+    settings.cpp
+    settings.h
+
     info.cpp
     info.h
 
     randnum.cpp
     randnum.h
+
+    timer.cpp
+    timer.h
+
+    note.cpp
+    note.h
+
+    nettime.cpp
+    nettime.h
   )
 else()
   add_executable(MorningStar_Zero
@@ -45,11 +57,23 @@ else()
     morningstar.cpp
     morningstar.h
 
+    settings.cpp
+    settings.h
+
     info.cpp
     info.h
 
     randnum.cpp
     randnum.h
+
+    timer.cpp
+    timer.h
+
+    note.cpp
+    note.h
+
+    nettime.cpp
+    nettime.h
   )
 endif()
 

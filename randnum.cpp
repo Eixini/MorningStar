@@ -11,8 +11,8 @@ randnum::randnum(QDialog *parent) : QDialog(parent)
     errorRange = new QLabel("", this);
 
     vbox = new QVBoxLayout(this); // Добавление вериткального компоновщика
-    hbox = new QHBoxLayout(this); // Добавления горизонтального компоновщика для ввода диапозона
-    vrange = new QVBoxLayout(this); // Добавление вертикального компоновщика для отображения числа и настройки диапазона генерации
+    hbox = new QHBoxLayout(); // Добавления горизонтального компоновщика для ввода диапозона
+    vrange = new QVBoxLayout(); // Добавление вертикального компоновщика для отображения числа и настройки диапазона генерации
 
     smin = new QSpinBox(this); // Создание спинбокса дял ввода минимального
     smax = new QSpinBox(this); // Создание спинбокса для ввода максимального
@@ -45,12 +45,14 @@ randnum::randnum(QDialog *parent) : QDialog(parent)
 
 void randnum::ShowResult()
 {
+    errorRange->clear();
 
     srand(time(0)); // Для обновления генерации чисел
     int RandNumber = 0; // Создание переменной, для хранения результата генерации случайного числа
     int min, max; // ПеременныеЮ для хранения минимального и максимального значения диапазона
 
-    QString errorMSNG = "Некорректный диапазон! MAX должен быть больше MIN";
+    QString errorMSNG = "MAX должен быть больше MIN";
+    QString error = "ERROR";
 
     min = smin->value(); // Конвертация из значения в спинбоксе в целочисленное
     max = smax->value(); // Конвертация из значения в спинбоксе в целочисленное
@@ -58,17 +60,19 @@ void randnum::ShowResult()
     if(max<=min) // не работает как надо
     {
         errorRange->setText(errorMSNG);
-        shownum->setText("ERROR");
+        shownum->setText(error);
     }
     else if(min == max)
     {
-        errorRange->setText("Некорректный диапазон! MAX должен быть больше MIN");
-        shownum->setText("ERROR");
+        errorRange->setText(errorMSNG);
+        shownum->setText(error);
     }
-    errorRange->clear();
-    RandNumber = min + (rand() % (max - min)); // Генерация случайного числа и сохранения его в переменной
+   else
+    {
+        RandNumber = min + (rand() % (max - min)); // Генерация случайного числа и сохранения его в переменной
+        shownum->setText(QString::number(RandNumber)); // Конвертация из int в qstring и уставнока в метке для отображения
+    }
 
-    shownum->setText(QString::number(RandNumber)); // Конвертация из int в qstring и уставнока в метке для отображения
 
 }
 

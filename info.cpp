@@ -4,7 +4,7 @@ info::info(QDialog *parent) : QDialog(parent)
 {
 
     QVBoxLayout *vertBox = new QVBoxLayout(this); // создание вертикального компоновщика
-    QFormLayout *flayout = new QFormLayout(this); // создание компоновщика для Описание-QLabel
+    QFormLayout *flayout = new QFormLayout(); // создание компоновщика для Описание-QLabel
 
     mainmenu = new QPushButton("Вернуться в меню", this); // Создание кнопки для возврата в главное окно
     mainmenu->setFixedSize(180,30); // Установка фиксированного размера кнопки
