@@ -104,6 +104,7 @@ void note::editNote()
 
 // ::::::::::::::::::::::::  ФУНКЦИОНАЛ ОКНА   :::::::::::::::::::::::::::::::::::::
 
+    notelist->selectedItems()[0]->setText(*noteName);
 
 
     editNoteWin->exec();
