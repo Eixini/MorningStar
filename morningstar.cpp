@@ -13,9 +13,9 @@ MorningStar::MorningStar(QWidget *parent)
    nettime->setSizePolicy(QSizePolicy::Expanding , QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
    nettime->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/clock_icon")); // устанавливает иконку в кнопку
 
-   note = new QPushButton("Заметки", this); // создание кнопки для меню заметок
-   note->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
-   note->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/clipboard_icon")); // устанавливает иконку в кнопку
+   noteButton = new QPushButton("Заметки", this); // создание кнопки для меню заметок
+   noteButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
+   noteButton->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/clipboard_icon")); // устанавливает иконку в кнопку
 
    timer = new QPushButton("Таймер", this); // создание кнопки для установки таймера
    timer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
@@ -39,6 +39,8 @@ MorningStar::MorningStar(QWidget *parent)
    quit->setShortcut(tr("Alt+Q")); // установка горячей клавиши для кнопки выхода, при нажатии комбинации Alt+
 
 
+   note *noteObj = new note; // объект класса заметок
+
    // -------------------------------------------------------------------------------------------------------------------
 
 
@@ -51,13 +53,17 @@ MorningStar::MorningStar(QWidget *parent)
    connect(info, &QPushButton::clicked, this, &MorningStar::showInfo); // открытие окна с информацией
    connect(randnum, &QPushButton::clicked, this, &MorningStar::showRand); // открытие окна с генерацией случайного числа
    connect(timer, &QPushButton::clicked, this, &MorningStar::showTimer); // открытие окна с установкой таймера
-   connect(note,&QPushButton::clicked,this,&MorningStar::showNote); // открытие окна со списком заметок
+
+      connect(noteButton, &QPushButton::clicked, noteObj, &note::note_read); // считывание заметок из файла с заметками (если такой есть)
+   connect(noteButton, &QPushButton::clicked, this, &MorningStar::showNote); // открытие окна со списком заметок
+
+
    connect(nettime, &QPushButton::clicked, this, &MorningStar::showNettime); // открытие окна для получения точного времени из интернета
 
    // ++++++++++++++++++++++++++++  Добавление кнопок в вертикальный компоновщик  ++++++++++++++++++++++++++++++++++++++++
 
     vbox->addWidget(nettime);
-    vbox->addWidget(note);
+    vbox->addWidget(noteButton);
     vbox->addWidget(timer);
     vbox->addWidget(randnum);
     vbox->addWidget(info);
@@ -130,7 +136,6 @@ void MorningStar::showNote()
     noteWin.setWindowTitle("Заметки");
     noteWin.setWindowIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/clipboard_icon"));
 
-
     noteWin.exec();
 }
 
@@ -145,7 +150,5 @@ void MorningStar::showNettime()
     nettimeWin.exec();
 }
 
-MorningStar::~MorningStar()
-{
-}
+MorningStar::~MorningStar() {}
 

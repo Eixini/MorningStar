@@ -14,11 +14,13 @@ note::note(QDialog *parent) : QDialog(parent)
 
     notelist = new QListWidget(this); // Создание списка
 
-
+    QFile noteFile("/home/eixini/Рабочий стол/note_morningstar.txt"); // Создание указателя для работы с файлом, где содержатся заметки
 
     // +++++++++++++++++++++++++   НАСТРОЙКА ФУНКЦИОНАЛА   ++++++++++++++++++++++++++++++
 
-    noteName = new QString("New Note"); // Создание переменной для хранения введеного текста
+
+    // ++++++++++++++++++++++++++++++ РАБОТА С ФАЙЛОМ +++++++++++++++++++++++++++++++++++
+
 
 
     // ***********************  ПОДКЛЮЧЕНИЕ СИГНАЛОВ К СЛОТАМ  **************************
@@ -54,6 +56,7 @@ void note::addNote()
 
     notelist->addItem("New Note"); // Установка названия заметки (элемента QListWidget)
 
+
 }
 
 void note::showNote()
@@ -68,46 +71,45 @@ void note::editNote()
 {
 // Редактирвоание существующей заметки
 
+    editNoteWin = new QDialog(this);
+    editNoteWin->show();
 
-    editNoteWin = new QDialog(this); // Создание диалогового окна
-
-    editTitleNote = new QLineEdit(editNoteWin); // Создание текстовой строки для названия заметки
-    editTextNote = new QTextEdit(this); // Создание текстового объекта для содержания заметки
+    editTitleNote = new QLineEdit(this); // Создание текстовой строки для названия заметки
     editNoteVBox = new QVBoxLayout(editNoteWin); // Создание компоновщика
     formLineEdit = new QFormLayout(); // СОздание компоновщика для подписи текста
     hboxForEditButtons = new QHBoxLayout(); // Создание горизонтального компоновщика для кнопок
     editAccept = new QPushButton("Сохранить",this); // Создание кнопки для принятия изменений
-    editApply = new QPushButton("Применить",this); // Создание кнопки для применения изменений
     editCancel = new QPushButton("Отменить", this); // Создание кнопки для отмены изменений
-    LabelEditTextNote = new QLabel("Содержание: ",this); // СОздание текстовой метки для текста заметки
 
-    editNoteWin->setWindowTitle("Редактирование заметки");
-    editNoteWin->setWindowIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/keyboard_icon"));
+    noteName = new QString("New Note"); // Создание переменной для хранения введеного текста
 
-    // Подредактировать сигналы
-    connect(editAccept,&QPushButton::clicked,editNoteWin,&QDialog::accept);
-    connect(editCancel,&QPushButton::clicked,editNoteWin,&QDialog::close);
+
+    // +++++++++++++++++++ Работа с Сигналами ++++++++++++++++++++++++++++
+
+    connect(editAccept,&QPushButton::clicked,this,&QDialog::accept);
+    connect(editCancel,&QPushButton::clicked,this,&QDialog::close);
     connect(editTitleNote, &QLineEdit::editingFinished,this,&note::setNoteNameText);
 
-    // Компноновка
+    // ======================== Компноновка ==============================
 
     formLineEdit->addRow("Название: ",editTitleNote);
     editNoteVBox->addLayout(formLineEdit);
-    editNoteVBox->addWidget(LabelEditTextNote);
-    editNoteVBox->addWidget(editTextNote);
 
     hboxForEditButtons->addWidget(editAccept);
-    hboxForEditButtons->addWidget(editApply);
     hboxForEditButtons->addWidget(editCancel);
 
     editNoteVBox->addLayout(hboxForEditButtons);
 
 // ::::::::::::::::::::::::  ФУНКЦИОНАЛ ОКНА   :::::::::::::::::::::::::::::::::::::
 
-    notelist->selectedItems()[0]->setText(*noteName);
+    notelist->selectedItems()[0]->setText(*noteName); // Установка текста в элемент QListWidget
+
+// ------------------ Работа с Файлом --------------------------------
 
 
-    editNoteWin->exec();
+
+
+
 }
 
 void note::removeNote()
@@ -126,12 +128,43 @@ void note::removeNote()
 
 }
 
-// Слот для применения изменений
 void note::setNoteNameText()
 {
+    notelist->selectedItems()[0]->setText(editTitleNote->text()); // Установка текста в элемент QListWidget
     *noteName = editTitleNote->text();
 }
 
+void note::note_read() // Слот для считывания заметок из файла и запись их в объект класса QListWidget
+{
 
+    QMessageBox::warning(this, "Инфо","Идет считывание данных из файла заметок"); // Пока что нужно для отладки
+
+    // Проверка, существует ли файл
+
+
+    // Проверка , открыт ли файл, доступен ли он для считывание информации и т.д
+
+
+
+    QFile noteTxt("/home/eixini/note_morningstar.txt"); // Создание объекта для работы с файлом
+
+    noteTxt.open(QIODevice::ReadOnly); // Открытие файла (и установка режима - только чтение)
+
+    if(noteTxt.isOpen()) // Проверка, открыт ли файл
+    {    QMessageBox::warning(this, "Инфо","Файл успешно открыт!"); }
+    else
+    {   QMessageBox::warning(this, "Ошибка","Файл не открыт!"); }
+
+    // -------------------------- СЧИТЫВАНИЕ ДАННЫХ ИЗ ТЕКСТОВОГО ФАЙЛА И ЗАПИСЬ В СПИСОК ------------------------------
+
+    QString noteContent; // объект строкового типа для временного хранения содержимого определенной строки
+
+    noteContent = noteTxt.readLine(); // Считывание информации
+
+    notelist->addItem(noteContent); // Создание объекта QListWidget и устанвока имени из файла
+
+
+    noteTxt.close(); // Закрытие файла
+}
 
 note::~note() {}

@@ -31,7 +31,10 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
     // +++++++++++++++++++++++++   НАСТРОЙКА ФУНКЦИОНАЛА   ++++++++++++++++++++++++++++++
 
     // Установка количество символов в LCD
-    hLCD->setDigitCount(2);             mLCD->setDigitCount(2);             sLCD->setDigitCount(2);
+    hLCD->setDigitCount(2);
+    mLCD->setDigitCount(2);
+    sLCD->setDigitCount(2);
+
     // Установка стиля для LCD
     hLCD->setSegmentStyle(QLCDNumber::Flat);
     mLCD->setSegmentStyle(QLCDNumber::Flat);

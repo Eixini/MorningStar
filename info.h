@@ -15,7 +15,7 @@
 
 #include <QSysInfo>
 
-#include <morningstar.h>
+//#include <morningstar.h>
 
 class info : public QDialog
 {
