@@ -21,8 +21,6 @@ note::note(QDialog *parent) : QDialog(parent)
 
     // ++++++++++++++++++++++++++++++ РАБОТА С ФАЙЛОМ +++++++++++++++++++++++++++++++++++
 
-
-
     // ***********************  ПОДКЛЮЧЕНИЕ СИГНАЛОВ К СЛОТАМ  **************************
 
     connect(mainmenu, &QPushButton::clicked, this, &QDialog::accept); // При нажатии на кнопку, будет произведен возврат в главное меню
@@ -41,30 +39,17 @@ note::note(QDialog *parent) : QDialog(parent)
     vbox->addStretch(1); // Добавление коэффициента растяжения снизу
     vbox->addWidget(mainmenu);
 
-
     hbox->addWidget(notelist);
     hbox->addLayout(vbox);
 
     setLayout(hbox); // Установка виджета в качестве основного
-
 }
-
 
 void note::addNote()
 {
 // Добавление новой заметки
 
     notelist->addItem("New Note"); // Установка названия заметки (элемента QListWidget)
-
-
-}
-
-void note::showNote()
-{
-// Просмотр заметки
-// Режим для названия и содержания заметки - только чтение
-
-
 }
 
 void note::editNote()
@@ -105,11 +90,6 @@ void note::editNote()
     notelist->selectedItems()[0]->setText(*noteName); // Установка текста в элемент QListWidget
 
 // ------------------ Работа с Файлом --------------------------------
-
-
-
-
-
 }
 
 void note::removeNote()
