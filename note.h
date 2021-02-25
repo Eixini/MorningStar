@@ -68,15 +68,11 @@ private slots:
     void addNote(); // Слот для добавления новой заметки
     void removeNote(); // слот для удаления заметки
     void editNote(); // Слот для редактирования заметки
-    void showNote(); // Слот для показа заметки
-
     void setNoteNameText();
-
 
 public slots:
 
     void note_read(); // Создание слота для считывания заметок из файла
-
 
 };
 
