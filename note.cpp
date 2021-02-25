@@ -142,7 +142,7 @@ void note::note_read() // Слот для считывания заметок и
 
     // Проверка , открыт ли файл, доступен ли он для считывание информации и т.д
 
-    QFile noteTxt("/home/eixini/note_morningstar.txt"); // Создание объекта для работы с файлом
+    QFile noteTxt("note_morningstar.txt"); // Создание объекта для работы с файлом
     noteTxt.open(QIODevice::ReadOnly); // Открытие файла (и установка режима - только чтение)
 
     if(noteTxt.isOpen()) // Проверка, открыт ли файл
