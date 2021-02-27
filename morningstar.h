@@ -46,7 +46,5 @@ private:
     QPushButton *settings;
     QPushButton *quit; // создание объекта кнопки для выходу из приложения
 
-
-
 };
 #endif // MORNINGSTAR_H

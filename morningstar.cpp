@@ -39,25 +39,12 @@ MorningStar::MorningStar(QWidget *parent)
    quit->setShortcut(tr("Alt+Q")); // установка горячей клавиши для кнопки выхода, при нажатии комбинации Alt+
 
 
-   note *noteObj = new note; // объект класса заметок
-
-   // -------------------------------------------------------------------------------------------------------------------
-
-
-
-   // ================================= Настройка кнопки выхода из приложения ============================================
-
    connect(quit, &QPushButton::clicked, qApp, &QApplication::quit); // при нажатии на кнопку "Выход" приложение будет закрываться
-
    connect(settings, &QPushButton::clicked, this, &MorningStar::showSettings); // открытие окна с настройками
    connect(info, &QPushButton::clicked, this, &MorningStar::showInfo); // открытие окна с информацией
    connect(randnum, &QPushButton::clicked, this, &MorningStar::showRand); // открытие окна с генерацией случайного числа
    connect(timer, &QPushButton::clicked, this, &MorningStar::showTimer); // открытие окна с установкой таймера
-
-      connect(noteButton, &QPushButton::clicked, noteObj, &note::note_read); // считывание заметок из файла с заметками (если такой есть)
    connect(noteButton, &QPushButton::clicked, this, &MorningStar::showNote); // открытие окна со списком заметок
-
-
    connect(nettime, &QPushButton::clicked, this, &MorningStar::showNettime); // открытие окна для получения точного времени из интернета
 
    // ++++++++++++++++++++++++++++  Добавление кнопок в вертикальный компоновщик  ++++++++++++++++++++++++++++++++++++++++
@@ -70,9 +57,7 @@ MorningStar::MorningStar(QWidget *parent)
     vbox->addWidget(settings);
     vbox->addWidget(quit);
 
-
-   setLayout(vbox); // установка вертикального компоновщика (в качестве главного) на главное окно
-
+    setLayout(vbox); // установка вертикального компоновщика (в качестве главного) на главное окно
 
 }
 
@@ -81,10 +66,8 @@ void MorningStar::showSettings()
     class settings settingsWin;
 
     settingsWin.setModal(true);
-
     settingsWin.setWindowTitle("О Приложении"); // установка заголовка окна
     settingsWin.setWindowIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/tool_icon")); // Установка иконки для окна
-
     settingsWin.exec();
 }
 
@@ -108,9 +91,6 @@ void MorningStar::showRand()
     randWin.setWindowTitle("Случайное число"); // Установка заголовка для окна
     randWin.setWindowIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/ball_icon")); // установка иконки для окна
     randWin.setFixedSize(250,180); // установка фиксированного размера
-
-
-
     randWin.exec();
 }
 
@@ -122,11 +102,9 @@ void MorningStar::showTimer()
     timerWin.setModal(true);
     timerWin.setWindowTitle("Таймер");
     timerWin.setWindowIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/timer_icon"));
-
-
-
     timerWin.exec();
 }
+
 
 void MorningStar::showNote()
 {
