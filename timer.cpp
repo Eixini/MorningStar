@@ -51,8 +51,6 @@ timer::timer(QDialog *parent) : QDialog(parent)
     connect(setTimerButton, &QPushButton::clicked,this, &timer::LCDValueHour); // Применение значения со Спинбокса(час) на LCD (час)
     connect(startTimerButton, &QPushButton::clicked, this, &timer::startTimer); // Запуск таймера
     connect(cancelTimerButton, &QPushButton::clicked, this, &timer::cancelTimer);
-
-
    // =========================== УПРАВЛЕНИЕ КОМПОНОВКОЙ =========================
 
 
@@ -90,11 +88,7 @@ void timer::startTimer()
     msec_val = minuteTomsec(minute) + hourTomsec(hour); // суммирование количесво минут и часов , переведенных в миллисекунды
 
     timer_val->start(msec_val); // старт таймера
-
-
     connect(timer_val,&QTimer::timeout, this, &timer::showMessage);
-
-
 }
 
 void timer::cancelTimer()
@@ -112,8 +106,7 @@ void timer::LCDValueMin()
     int valmin;
 
     valmin = tminut->value();
-
-        minutLCD->display(valmin);
+    minutLCD->display(valmin);
 }
 
 void timer::LCDValueHour()
@@ -123,8 +116,7 @@ void timer::LCDValueHour()
     int valhour;
 
     valhour = thour->value();
-
-        hourLCD->display(valhour);
+    hourLCD->display(valhour);
 }
 
 long timer::minuteTomsec(long minuteVal)
@@ -139,11 +131,7 @@ long long timer::hourTomsec(long hourVal)
 
 void timer::showMessage()
 {
-
     QMessageBox::warning(this, "Внимание","Время вышло");
 }
 
-
-timer::~timer()
-{
-}
+timer::~timer(){}
