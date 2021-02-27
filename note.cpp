@@ -1,5 +1,7 @@
 #include "note.h"
 
+int note::nf_count = 0; // счетчик для ограничения количества инициализации списка заметок
+
 note::note(QDialog *parent) : QDialog(parent)
 {
     // ~~~~~~~~~~~~~~~~~~~~~~~~~  ИНИЦИАЛИЗАЦИЯ ОБЪЕКТОВ  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -8,6 +10,8 @@ note::note(QDialog *parent) : QDialog(parent)
     addButton = new QPushButton("Добавить заметку", this); // Создание кнопки для добавления новой заметки
     editButton = new QPushButton("Редактировать заметку", this); // Создание кнопки для редактирования существующей заметки
     removeButton = new QPushButton("Удалить заметку" ,this); // Создание кнопки для удаления заметки
+
+    initi = new QPushButton("Инициализировать", this);
 
     hbox = new QHBoxLayout(this); // Создание горизонтального компоновщика
     vbox = new QVBoxLayout(); // Создание вертикального компоновщика
@@ -18,20 +22,20 @@ note::note(QDialog *parent) : QDialog(parent)
 
     // +++++++++++++++++++++++++   НАСТРОЙКА ФУНКЦИОНАЛА   ++++++++++++++++++++++++++++++
 
-
-    // ++++++++++++++++++++++++++++++ РАБОТА С ФАЙЛОМ +++++++++++++++++++++++++++++++++++
-
     // ***********************  ПОДКЛЮЧЕНИЕ СИГНАЛОВ К СЛОТАМ  **************************
 
-    connect(mainmenu, &QPushButton::clicked, this, &QDialog::accept); // При нажатии на кнопку, будет произведен возврат в главное меню
+    connect(mainmenu, &QPushButton::clicked, this, &note::saveNote); // При нажатии на кнопку, перед возвратом в главное меню будет происходить сохр. заметок
+    connect(mainmenu, &QPushButton::clicked, this, &QDialog::accept); // При нажатии на кнопку, будет произведен возврат в главное меню 
+
     connect(addButton, &QPushButton::clicked, this, &note::addNote); // При нажатии на кнопку, появляется окно для создания новой заметки
     connect(editButton, &QPushButton::clicked,this, &note::editNote); // При нажатии на кнопку, появляется окно для редактирования заметки
     connect(removeButton, &QPushButton::clicked, this, &note::removeNote); // При нажатии на кнопку, выбранная заметка удаляется
 
-    // ^^^^^^^^^^^^^^^^^^^^^^^     УПРАВЛЕНИЕ КОМПОНОВКОЙ     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // ^^^^^^^^^^^^^^^^^^^^^^^^     УПРАВЛЕНИЕ КОМПОНОВКОЙ     ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     // Настройка компоновки кнопок
     vbox->addSpacing(5); // Установка расстояния между кнопками
+    vbox->addWidget(initi); // Временная кнопка для проверка !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     vbox->addStretch(1); // Добавление коэффициента растяжения сверху
     vbox->addWidget(addButton);
     vbox->addWidget(editButton);
@@ -43,14 +47,11 @@ note::note(QDialog *parent) : QDialog(parent)
     hbox->addLayout(vbox);
 
     setLayout(hbox); // Установка виджета в качестве основного
+
 }
 
-void note::addNote()
-{
-// Добавление новой заметки
-
-    notelist->addItem("New Note"); // Установка названия заметки (элемента QListWidget)
-}
+void note::addNote() // Добавление новой заметки
+{   notelist->addItem("New Note");  }
 
 void note::editNote()
 {
@@ -64,15 +65,13 @@ void note::editNote()
     formLineEdit = new QFormLayout(); // СОздание компоновщика для подписи текста
     hboxForEditButtons = new QHBoxLayout(); // Создание горизонтального компоновщика для кнопок
     editAccept = new QPushButton("Сохранить",this); // Создание кнопки для принятия изменений
-    editCancel = new QPushButton("Отменить", this); // Создание кнопки для отмены изменений
 
     noteName = new QString("New Note"); // Создание переменной для хранения введеного текста
 
-
     // +++++++++++++++++++ Работа с Сигналами ++++++++++++++++++++++++++++
 
+    connect(initi,&QPushButton::clicked,this,&note::note_read);
     connect(editAccept,&QPushButton::clicked,this,&QDialog::accept);
-    connect(editCancel,&QPushButton::clicked,this,&QDialog::close);
     connect(editTitleNote, &QLineEdit::editingFinished,this,&note::setNoteNameText);
 
     // ======================== Компноновка ==============================
@@ -81,20 +80,17 @@ void note::editNote()
     editNoteVBox->addLayout(formLineEdit);
 
     hboxForEditButtons->addWidget(editAccept);
-    hboxForEditButtons->addWidget(editCancel);
 
     editNoteVBox->addLayout(hboxForEditButtons);
 
 // ::::::::::::::::::::::::  ФУНКЦИОНАЛ ОКНА   :::::::::::::::::::::::::::::::::::::
 
     notelist->selectedItems()[0]->setText(*noteName); // Установка текста в элемент QListWidget
-
-// ------------------ Работа с Файлом --------------------------------
 }
 
-void note::removeNote()
+void note::removeNote() // Удаление заметки
 {
-// Удаление заметки
+
     if(notelist)
     {
                QList< QListWidgetItem* > items = notelist->selectedItems();
@@ -122,20 +118,46 @@ void note::note_read() // Слот для считывания заметок и
 
     // Проверка , открыт ли файл, доступен ли он для считывание информации и т.д
 
-    QFile noteTxt("note_morningstar.txt"); // Создание объекта для работы с файлом
+    QFile noteTxt("/home/eixini/note_morningstar.txt"); // Создание объекта для работы с файлом
+
     noteTxt.open(QIODevice::ReadOnly); // Открытие файла (и установка режима - только чтение)
 
-    if(noteTxt.isOpen()) // Проверка, открыт ли файл
-    {    QMessageBox::warning(this, "Инфо","Файл успешно открыт!"); }
-    else
-    {   QMessageBox::warning(this, "Ошибка","Файл не открыт!"); }
+    if(noteTxt.isOpen())        {   QMessageBox::warning(this, "Инфо",  "Файл успешно открыт!"); }
+    else                        {   QMessageBox::warning(this, "Ошибка","Файл не открыт!");      }
 
-    // -------------------------- СЧИТЫВАНИЕ ДАННЫХ ИЗ ТЕКСТОВОГО ФАЙЛА И ЗАПИСЬ В СПИСОК ---------------------------- //
-    QString noteContent; // объект строкового типа для временного хранения содержимого определенной строки
-    noteContent = noteTxt.readLine(); // Считывание информации
-    notelist->addItem(noteContent); // Создание объекта QListWidget и устанвока имени из файла
+    // -------------------------- СЧИТЫВАНИЕ ДАННЫХ ИЗ ТЕКСТОВОГО ФАЙЛА И ЗАПИСЬ В СПИСОК ------------------------------
+
+    while(!noteTxt.atEnd())
+    {
+        notelist->addItem(noteTxt.readLine()); // Создание объекта QListWidget при открытии окна
+    }
 
     noteTxt.close(); // Закрытие файла
+
+    // Не позволяет вызывать загрузку заметок из файла повторно за сеанс
+    initi->setEnabled(nf_count == 0);
+    ++nf_count;
+}
+
+void note::saveNote() // слот для сохранение изменений в файл перед закрытием окна заметок
+{
+    // Проверка, существует ли файл , открыт ли файл, доступен ли он для считывание информации и т.д
+
+        QFile noteTxt("/home/eixini/note_morningstar.txt"); // Создание объекта для работы с файлом
+        noteTxt.open(QIODevice::WriteOnly); // Открытие файла (и установка режима - только чтение)
+
+        // Запись в файл конечный результата работы (что имеется в списке QListWidget)
+
+        if(notelist)
+        {
+            for (int i = 0; i < notelist->count(); ++i)
+            {
+              QListWidgetItem* item = notelist->item(i);
+              noteTxt.write(item->text().toUtf8());
+              noteTxt.write("\n");
+            }
+        }
+        noteTxt.close(); // Закрытие файла
 }
 
 note::~note() {}
