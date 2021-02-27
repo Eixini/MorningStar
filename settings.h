@@ -21,10 +21,6 @@ public:
 
     QLineEdit *folderLine; // создание объекта для хранения пути для текстовых файлов
 
-public slots:
-
-
-
 private slots:
 
     void copyPath(); // Слот для копирования содержимого строки для указания пути
@@ -41,7 +37,6 @@ private:
     QFormLayout *formbox; // Создание объекта компоновки
     QHBoxLayout *sbox; // Создание объекта компоновки
     QHBoxLayout *buttonBox; // Создание объекта компоновщика для размещения кнопок
-
 
 };
 
