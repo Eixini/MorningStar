@@ -36,7 +36,6 @@ info::info(QDialog *parent) : QDialog(parent)
     flayout->addRow("Тип ядра: ", labkernel);          // создание компоновки описание - текст
     flayout->addRow("ОС: ", labtypeos);                // создание компоновки описание - текст
 
-
     // Добавление виджетов в вертикальный компоновщик , а так же редактирование расположения в компоновщике
     vertBox->addWidget(infotext,1, Qt::AlignHCenter);
     vertBox->addWidget(infodev,1,Qt::AlignLeft);
@@ -46,6 +45,4 @@ info::info(QDialog *parent) : QDialog(parent)
     setLayout(vertBox); // установка компоновщика в качестве главного
 }
 
-info::~info()
-{
-}
+info::~info() { }
