@@ -26,8 +26,6 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
     vbox = new QVBoxLayout(); // Создание вертикального компоновщика
     vboxLab = new QVBoxLayout(); // Создание вертикального компоновщика
     hbox = new QHBoxLayout(this); // Создание горизонтального компоновщика
-
-
     // +++++++++++++++++++++++++   НАСТРОЙКА ФУНКЦИОНАЛА   ++++++++++++++++++++++++++++++
 
     // Установка количество символов в LCD
@@ -65,8 +63,9 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
     grid->addWidget(hlabel, 0, 0, Qt::AlignHCenter);
     grid->addWidget(mlabel, 0, 1, Qt::AlignHCenter);
     grid->addWidget(slabel, 0, 2, Qt::AlignHCenter);
-
-    grid->addWidget(hLCD, 1, 0);            grid->addWidget(mLCD, 1, 1);            grid->addWidget(sLCD, 1, 2);
+    grid->addWidget(hLCD, 1, 0);
+    grid->addWidget(mLCD, 1, 1);
+    grid->addWidget(sLCD, 1, 2);
 
     vbox->addLayout(grid);
     vbox->addWidget(requestButton, Qt::AlignHCenter);
@@ -84,16 +83,9 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
 
 }
 
-
 void nettime::TimeRequest()
 {
-// Для запроса времени из интернета
-
-
-
+    // Для запроса времени из интернета
 }
-
-
-
 
 nettime::~nettime() {}

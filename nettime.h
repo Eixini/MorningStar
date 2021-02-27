@@ -45,13 +45,9 @@ private:
     QVBoxLayout *vbox; // Создание объекта вертикального компоновщика
     QVBoxLayout *vboxLab; // Создание объекта вертикального компоновщика
 
-
-
 private slots:
 
     void TimeRequest(); // Слот для запроса времени из интернета
-
-
 
 };
 
