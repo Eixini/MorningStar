@@ -113,6 +113,7 @@ void MorningStar::showNote()
     noteWin.setModal(true);
     noteWin.setWindowTitle("Заметки");
     noteWin.setWindowIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/clipboard_icon"));
+    noteWin.note_read(); // вызов метода для чтения заметок из файла
 
     noteWin.exec();
 }
