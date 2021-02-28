@@ -1,7 +1,5 @@
 #include "note.h"
 
-int note::nf_count = 0; // счетчик для ограничения количества инициализации списка заметок
-
 note::note(QDialog *parent) : QDialog(parent)
 {
     // ~~~~~~~~~~~~~~~~~~~~~~~~~  ИНИЦИАЛИЗАЦИЯ ОБЪЕКТОВ  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -10,8 +8,6 @@ note::note(QDialog *parent) : QDialog(parent)
     addButton = new QPushButton("Добавить заметку", this); // Создание кнопки для добавления новой заметки
     editButton = new QPushButton("Редактировать заметку", this); // Создание кнопки для редактирования существующей заметки
     removeButton = new QPushButton("Удалить заметку" ,this); // Создание кнопки для удаления заметки
-
-    initi = new QPushButton("Инициализировать", this);
 
     hbox = new QHBoxLayout(this); // Создание горизонтального компоновщика
     vbox = new QVBoxLayout(); // Создание вертикального компоновщика
@@ -26,7 +22,6 @@ note::note(QDialog *parent) : QDialog(parent)
 
     connect(mainmenu, &QPushButton::clicked, this, &note::saveNote); // При нажатии на кнопку, перед возвратом в главное меню будет происходить сохр. заметок
     connect(mainmenu, &QPushButton::clicked, this, &QDialog::accept); // При нажатии на кнопку, будет произведен возврат в главное меню 
-
     connect(addButton, &QPushButton::clicked, this, &note::addNote); // При нажатии на кнопку, появляется окно для создания новой заметки
     connect(editButton, &QPushButton::clicked,this, &note::editNote); // При нажатии на кнопку, появляется окно для редактирования заметки
     connect(removeButton, &QPushButton::clicked, this, &note::removeNote); // При нажатии на кнопку, выбранная заметка удаляется
@@ -35,7 +30,6 @@ note::note(QDialog *parent) : QDialog(parent)
 
     // Настройка компоновки кнопок
     vbox->addSpacing(5); // Установка расстояния между кнопками
-    vbox->addWidget(initi); // Временная кнопка для проверка !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     vbox->addStretch(1); // Добавление коэффициента растяжения сверху
     vbox->addWidget(addButton);
     vbox->addWidget(editButton);
@@ -63,29 +57,24 @@ void note::editNote()
     editTitleNote = new QLineEdit(this); // Создание текстовой строки для названия заметки
     editNoteVBox = new QVBoxLayout(editNoteWin); // Создание компоновщика
     formLineEdit = new QFormLayout(); // СОздание компоновщика для подписи текста
-    hboxForEditButtons = new QHBoxLayout(); // Создание горизонтального компоновщика для кнопок
-    editAccept = new QPushButton("Сохранить",this); // Создание кнопки для принятия изменений
+    hint = new QLabel("Введите строку. Нажмите Enter. Закройте окно.", this);
 
-    noteName = new QString("New Note"); // Создание переменной для хранения введеного текста
+    // ------------------  Настройка элементов  -------------------------
+
+    editNoteWin->setWindowTitle("Редактирование заметки");
+    editNoteWin->setMinimumWidth(500); // Установка минимальной ширины
+    editNoteWin->setFixedHeight(90); // Установка фиксированной высоты
 
     // +++++++++++++++++++ Работа с Сигналами ++++++++++++++++++++++++++++
 
-    connect(initi,&QPushButton::clicked,this,&note::note_read);
-    connect(editAccept,&QPushButton::clicked,this,&QDialog::accept);
     connect(editTitleNote, &QLineEdit::editingFinished,this,&note::setNoteNameText);
 
     // ======================== Компноновка ==============================
 
     formLineEdit->addRow("Название: ",editTitleNote);
     editNoteVBox->addLayout(formLineEdit);
+    editNoteVBox->addWidget(hint);
 
-    hboxForEditButtons->addWidget(editAccept);
-
-    editNoteVBox->addLayout(hboxForEditButtons);
-
-// ::::::::::::::::::::::::  ФУНКЦИОНАЛ ОКНА   :::::::::::::::::::::::::::::::::::::
-
-    notelist->selectedItems()[0]->setText(*noteName); // Установка текста в элемент QListWidget
 }
 
 void note::removeNote() // Удаление заметки
@@ -107,7 +96,6 @@ void note::removeNote() // Удаление заметки
 void note::setNoteNameText()
 {
     notelist->selectedItems()[0]->setText(editTitleNote->text()); // Установка текста в элемент QListWidget
-    *noteName = editTitleNote->text();
 }
 
 void note::note_read() // Слот для считывания заметок из файла и запись их в объект класса QListWidget
@@ -129,14 +117,11 @@ void note::note_read() // Слот для считывания заметок и
 
     while(!noteTxt.atEnd())
     {
-        notelist->addItem(noteTxt.readLine()); // Создание объекта QListWidget при открытии окна
+        notelist->addItem(noteTxt.readLine().trimmed()); // Создание объекта QListWidget при открытии окна
     }
 
     noteTxt.close(); // Закрытие файла
 
-    // Не позволяет вызывать загрузку заметок из файла повторно за сеанс
-    initi->setEnabled(nf_count == 0);
-    ++nf_count;
 }
 
 void note::saveNote() // слот для сохранение изменений в файл перед закрытием окна заметок
