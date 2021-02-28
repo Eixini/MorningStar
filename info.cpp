@@ -20,7 +20,7 @@ info::info(QDialog *parent) : QDialog(parent)
     infotext->setText("Morning Star - Zero\n"); // установка текста
 
     infodev = new QLabel(this); // Создание виджета для текстового описания
-    infodev->setText("Рарработчик:  Eixini Software"); //устанвока текста
+    infodev->setText("Разработчик:  Eixini Software"); //устанвока текста
 
     labkernel = new QLabel(kernel);
     labtypeos = new QLabel(typeOS);
