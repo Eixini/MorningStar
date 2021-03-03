@@ -1,7 +1,6 @@
 #include "morningstar.h"
 
-MorningStar::MorningStar(QWidget *parent)
-    : QWidget(parent)
+MorningStar::MorningStar(QWidget *parent): QWidget(parent)
 {
 
    QVBoxLayout *vbox = new QVBoxLayout(this); // создание вертикального компоновщика
@@ -29,10 +28,6 @@ MorningStar::MorningStar(QWidget *parent)
    info->setSizePolicy(QSizePolicy::Expanding , QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
    info->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/info_icon")); // устанавливает иконку в кнопку
 
-   settings = new QPushButton("Настройки", this); // создание кнопки для показа окна с настройками
-   settings->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
-   settings->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/tool_icon")); // устанавливает иконку в кнопку
-
    quit = new QPushButton("Выход", this); // создание кнопки для выхода из приложения
    quit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
    quit->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/door_icon")); // установка иконки для кнопки
@@ -40,7 +35,6 @@ MorningStar::MorningStar(QWidget *parent)
 
 
    connect(quit, &QPushButton::clicked, qApp, &QApplication::quit); // при нажатии на кнопку "Выход" приложение будет закрываться
-   connect(settings, &QPushButton::clicked, this, &MorningStar::showSettings); // открытие окна с настройками
    connect(info, &QPushButton::clicked, this, &MorningStar::showInfo); // открытие окна с информацией
    connect(randnum, &QPushButton::clicked, this, &MorningStar::showRand); // открытие окна с генерацией случайного числа
    connect(timer, &QPushButton::clicked, this, &MorningStar::showTimer); // открытие окна с установкой таймера
@@ -54,21 +48,10 @@ MorningStar::MorningStar(QWidget *parent)
     vbox->addWidget(timer);
     vbox->addWidget(randnum);
     vbox->addWidget(info);
-    vbox->addWidget(settings);
     vbox->addWidget(quit);
 
     setLayout(vbox); // установка вертикального компоновщика (в качестве главного) на главное окно
 
-}
-
-void MorningStar::showSettings()
-{
-    class settings settingsWin;
-
-    settingsWin.setModal(true);
-    settingsWin.setWindowTitle("О Приложении"); // установка заголовка окна
-    settingsWin.setWindowIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/tool_icon")); // Установка иконки для окна
-    settingsWin.exec();
 }
 
 void MorningStar::showInfo()

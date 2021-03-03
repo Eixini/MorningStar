@@ -9,9 +9,7 @@
 #include <QIcon>
 #include <QWindow>
 #include <QFile>
-#include <QSettings>
 
-#include "settings.h"
 #include "info.h"
 #include "randnum.h"
 #include "timer.h"
@@ -25,7 +23,6 @@ class MorningStar : public QWidget
 public:
     MorningStar(QWidget *parent = nullptr);
     ~MorningStar();
-
 
 public slots:
 
@@ -43,7 +40,6 @@ private:
     QPushButton *timer; // создание объекта кнопки для таймера
     QPushButton *randnum; // создание объкта кнопки для виджета с генерацией случайного числа в заданном диапозоне
     QPushButton *info; // создание объекта кнопки для виджета с информацией о приложении
-    QPushButton *settings;
     QPushButton *quit; // создание объекта кнопки для выходу из приложения
 
 };
