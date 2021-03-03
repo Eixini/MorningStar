@@ -14,7 +14,6 @@ int main(int argc, char *argv[])
     splash->setPixmap(QPixmap("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/loading_logo.png")); // установка изображения на предзагрузочное окно
     splash->show(); // показ предзагрузочного окна
 
-
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   Главное окно   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     MorningStar window; // создание главного окна
@@ -22,10 +21,8 @@ int main(int argc, char *argv[])
     window.setWindowIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/ms_icon")); // установка иконки для главного окна
     window.setFixedSize(300,250); // установка размера главного окна
 
+    window.show();
+    splash->close(); // закрытие предзагрузочного окна
 
-
-        window.show();
-        splash->close(); // закрытие предзагрузочного окна
-
-        return app.exec();
-    }
+    return app.exec();
+}
