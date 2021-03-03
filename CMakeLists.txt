@@ -33,9 +33,6 @@ if(ANDROID)
     morningstar.cpp
     morningstar.h
 
-    settings.cpp
-    settings.h
-
     info.cpp
     info.h
 
@@ -56,9 +53,6 @@ else()
     main.cpp
     morningstar.cpp
     morningstar.h
-
-    settings.cpp
-    settings.h
 
     info.cpp
     info.h
