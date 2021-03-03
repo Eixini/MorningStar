@@ -16,6 +16,7 @@
 #include <QTextStream>
 #include <QMessageBox>
 #include <QString>
+#include <QStandardPaths>
 
 #include "morningstar.h"
 
