@@ -87,8 +87,13 @@ void timer::startTimer()
 
     msec_val = minuteTomsec(minute) + hourTomsec(hour); // суммирование количесво минут и часов , переведенных в миллисекунды
 
+    if(minute == 0 && hour == 0)
+        QMessageBox::warning(this,"Внимание! ", "Вы не установили время!");
+    else
+    {
     timer_val->start(msec_val); // старт таймера
     connect(timer_val,&QTimer::timeout, this, &timer::showMessage);
+    }
 }
 
 void timer::cancelTimer()
