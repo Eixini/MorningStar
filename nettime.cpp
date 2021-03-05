@@ -31,7 +31,7 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ОТЛАДОЧНАЯ ФИГНЯ  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    *cityTime = "http://worldtimeapi.org/api/timezone/Europe/Moscow";
+    cityTime = "http://worldtimeapi.org/api/timezone/Europe/Moscow";
 
     // +++++++++++++++++++++++++   НАСТРОЙКА ФУНКЦИОНАЛА   ++++++++++++++++++++++++++++++
 
@@ -97,8 +97,7 @@ void nettime::TimeRequest()
 {
     // Для запроса времени из интернета
     QMessageBox::warning(this,"Информация","Происходит запрос данных.");
-    //*cityTime = "http://worldtimeapi.org/api/timezone/Europe/Moscow";  ------ ОПРЕДЕЛИЛ В ТЕЛЕ КОНСТРУКТОРА, сюдя для НАГЛЯДНОСТИ добавил
-    net->get(QNetworkRequest(QUrl(*cityTime))); // запрос на данные
+    net->get(QNetworkRequest(QUrl(cityTime))); // запрос на данные
 
 }
 
@@ -106,12 +105,30 @@ void nettime::onFinished(QNetworkReply *reply)
 {
     if(reply->error() == QNetworkReply::NoError)
     {
-
-        QByteArray testData = reply->readAll(); // Присваивание переменной типа QString полученных данных
+        QMessageBox::warning(this,"Информация","Получены данные, идет обработка.");
+        QJsonDocument testData = QJsonDocument::fromJson(reply->readAll()); // Присваивание переменной типа QString полученных данных
         // Для отладки. Запись в файл полученных данных.
-        QFile filenettime(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation) + "NetTime.txt");
+        QString loc = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation); // СОздание строки, хранящей в себе путь к рабочему столу
+        QFile filenettime(loc + "/timetext.txt"); // Создание файла ПУТЬ + ИМЯ ФАЙЛА
         filenettime.open(QFile::WriteOnly);
-        filenettime.write(dataTime->toUtf8());
+
+        // Надо извлеч даннные из наборы (ключ:значение) - datetime, и присвоить объекту типа QTime
+
+        QString timeValue = testData["datetime"].toString(); // Извлечение из JSON данных нужный элемент (через ключ)
+        QDateTime date = QDateTime::fromString(timeValue); // Присваивание извлеченных данных объекту для даты и времени
+        QTime time = date.time(); // Попытка извлечения времени
+
+        // Установка значений из QDateTime в дсиплеи
+        hLCD->display(time.hour());
+        mLCD->display(time.minute());
+        sLCD->display(time.second());
+
+        // В ЦЕЛЯХ ОТЛАДКИ
+        QString test = date.toString();
+        QMessageBox::warning(this, "ПРоверка", testData["datetime"].toString());
+
+        filenettime.write(timeValue.toUtf8()); // запись в файл
+        filenettime.close();
     }
     else
     {

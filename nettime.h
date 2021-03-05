@@ -12,6 +12,7 @@
 #include <QLCDNumber>
 #include <QGridLayout>
 #include <QLabel>
+#include <QDateTime>
 #include <QTime>
 
 #include <QMessageBox>
@@ -56,8 +57,8 @@ private:
 
     // ~~~~~~~~~~~~~~~~~~~~~~~ ОТЛАДОЧНАЯ ФИГНЯ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    QString *cityTime; // Для хранения ссылки на запрос данных
-    QString *dataTime; // Для хранения полученных данных
+    QString cityTime; // Для хранения ссылки на запрос данных
+    QString dataTime; // Для хранения полученных данных
 
 private slots:
 
