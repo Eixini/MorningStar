@@ -26,6 +26,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Network REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Network REQUIRED)
 
 if(ANDROID)
   add_library(MorningStar_Zero SHARED
@@ -72,3 +74,4 @@ else()
 endif()
 
 target_link_libraries(MorningStar_Zero PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(MorningStar_Zero PRIVATE Qt${QT_VERSION_MAJOR}::Network)
