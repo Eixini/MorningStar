@@ -26,6 +26,13 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
     vbox = new QVBoxLayout(); // Создание вертикального компоновщика
     vboxLab = new QVBoxLayout(); // Создание вертикального компоновщика
     hbox = new QHBoxLayout(this); // Создание горизонтального компоновщика
+
+    net = new QNetworkAccessManager(this);
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ОТЛАДОЧНАЯ ФИГНЯ  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    *cityTime = "http://worldtimeapi.org/api/timezone/Europe/Moscow";
+
     // +++++++++++++++++++++++++   НАСТРОЙКА ФУНКЦИОНАЛА   ++++++++++++++++++++++++++++++
 
     // Установка количество символов в LCD
@@ -56,10 +63,13 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
     // ***********************  ПОДКЛЮЧЕНИЕ СИГНАЛОВ К СЛОТАМ  **************************
 
     connect(mainmenu, &QPushButton::clicked, this, &QDialog::accept); // При нажатии на кнопку будет произведен возврат в главное меню
+    connect(requestButton, &QPushButton::clicked, this, &nettime::TimeRequest);
+    connect(net, &QNetworkAccessManager::finished, this, &nettime::onFinished);
 
     // ^^^^^^^^^^^^^^^^^^^^^^^     УПРАВЛЕНИЕ КОМПОНОВКОЙ     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     // Добавление виджетов в сетку (виджет, строка в компоновщике, столбец в компоновщике)
+
     grid->addWidget(hlabel, 0, 0, Qt::AlignHCenter);
     grid->addWidget(mlabel, 0, 1, Qt::AlignHCenter);
     grid->addWidget(slabel, 0, 2, Qt::AlignHCenter);
@@ -86,6 +96,29 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
 void nettime::TimeRequest()
 {
     // Для запроса времени из интернета
+    QMessageBox::warning(this,"Информация","Происходит запрос данных.");
+    //*cityTime = "http://worldtimeapi.org/api/timezone/Europe/Moscow";  ------ ОПРЕДЕЛИЛ В ТЕЛЕ КОНСТРУКТОРА, сюдя для НАГЛЯДНОСТИ добавил
+    net->get(QNetworkRequest(QUrl(*cityTime))); // запрос на данные
+
+}
+
+void nettime::onFinished(QNetworkReply *reply)
+{
+    if(reply->error() == QNetworkReply::NoError)
+    {
+
+        QByteArray testData = reply->readAll(); // Присваивание переменной типа QString полученных данных
+        // Для отладки. Запись в файл полученных данных.
+        QFile filenettime(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation) + "NetTime.txt");
+        filenettime.open(QFile::WriteOnly);
+        filenettime.write(dataTime->toUtf8());
+    }
+    else
+    {
+        QMessageBox::warning(this, "Ошибка",reply->errorString());
+    }
+
+    reply->deleteLater();
 }
 
 nettime::~nettime() {}
