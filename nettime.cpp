@@ -29,9 +29,12 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
 
     net = new QNetworkAccessManager(this);
 
+    timer = new QTimer(this);
+
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ОТЛАДОЧНАЯ ФИГНЯ  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    cityTime = "http://worldtimeapi.org/api/timezone/Europe/Moscow";
+    //cityTime = "http://worldtimeapi.org/api/timezone/Europe/Moscow";
+
 
     // +++++++++++++++++++++++++   НАСТРОЙКА ФУНКЦИОНАЛА   ++++++++++++++++++++++++++++++
 
@@ -45,6 +48,11 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
     mLCD->setSegmentStyle(QLCDNumber::Flat);
     sLCD->setSegmentStyle(QLCDNumber::Flat);
 
+    // Установка значений в 0
+    hLCD->display(0);
+    mLCD->display(0);
+    sLCD->display(0);
+
     //Добавление городов (часовых поясов) в список
     nettimeList->addItem("Калининград (МСК -1)");
     nettimeList->addItem("Москва (МСК 0)");
@@ -54,8 +62,8 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
     nettimeList->addItem("Новосибирск (МСК +4)");
     nettimeList->addItem("Иркутск (МСК +5)");
     nettimeList->addItem("Якутск (МСК +6)");
-    nettimeList->addItem("Хабаровск (МСК +7)");
-    nettimeList->addItem("Дружина (МСК +8)");
+    nettimeList->addItem("Владивосток (МСК +7)");
+    nettimeList->addItem("Сахалин (МСК +8)");
     nettimeList->addItem("Анадырь (МСК +9)");
 
     //selectCity->setText(nettimeList->itemText); // Устанавливает название выбранного города (часового пояса) из списка ComboBox
@@ -97,7 +105,7 @@ void nettime::TimeRequest()
 {
     // Для запроса времени из интернета
     QMessageBox::warning(this,"Информация","Происходит запрос данных.");
-    net->get(QNetworkRequest(QUrl(cityTime))); // запрос на данные
+    net->get(QNetworkRequest(QUrl(city[nettimeList->currentIndex()]))); // запрос на данные
 
 }
 
@@ -106,29 +114,23 @@ void nettime::onFinished(QNetworkReply *reply)
     if(reply->error() == QNetworkReply::NoError)
     {
         QMessageBox::warning(this,"Информация","Получены данные, идет обработка.");
-        QJsonDocument testData = QJsonDocument::fromJson(reply->readAll()); // Присваивание переменной типа QString полученных данных
+        jsonData = QJsonDocument::fromJson(reply->readAll()); // Присваивание переменной типа QString полученных данных
         // Для отладки. Запись в файл полученных данных.
-        QString loc = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation); // СОздание строки, хранящей в себе путь к рабочему столу
-        QFile filenettime(loc + "/timetext.txt"); // Создание файла ПУТЬ + ИМЯ ФАЙЛА
-        filenettime.open(QFile::WriteOnly);
+        //QString loc = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation); // СОздание строки, хранящей в себе путь к рабочему столу
+        //QFile filenettime(loc + "/timetext.txt"); // Создание файла ПУТЬ + ИМЯ ФАЙЛА
+        //filenettime.open(QFile::WriteOnly);
 
-        // Надо извлеч даннные из наборы (ключ:значение) - datetime, и присвоить объекту типа QTime
+        timeValue = jsonData["datetime"].toString(); // Извлечение из JSON данных нужный элемент (через ключ)
+        date = QDateTime::fromString(timeValue, Qt::ISODateWithMs); // Присваивание извлеченных данных объекту для даты и времени
 
-        QString timeValue = testData["datetime"].toString(); // Извлечение из JSON данных нужный элемент (через ключ)
-        QDateTime date = QDateTime::fromString(timeValue); // Присваивание извлеченных данных объекту для даты и времени
-        QTime time = date.time(); // Попытка извлечения времени
+        //time = date.time();
 
-        // Установка значений из QDateTime в дсиплеи
-        hLCD->display(time.hour());
-        mLCD->display(time.minute());
-        sLCD->display(time.second());
 
-        // В ЦЕЛЯХ ОТЛАДКИ
-        QString test = date.toString();
-        QMessageBox::warning(this, "ПРоверка", testData["datetime"].toString());
+        connect(timer, &QTimer::timeout, this, &nettime::time_update); // для обновления показаний на LCD
+        timer->start(1000); // Обновление раз в 1 сек
 
-        filenettime.write(timeValue.toUtf8()); // запись в файл
-        filenettime.close();
+        //filenettime.write(timeValue.toUtf8()); // запись в файл
+        //filenettime.close();
     }
     else
     {
@@ -136,6 +138,15 @@ void nettime::onFinished(QNetworkReply *reply)
     }
 
     reply->deleteLater();
+}
+
+void nettime::time_update()
+{
+
+    // Установка значений из QDateTime в дсиплеи
+    hLCD->display(date.time().hour());
+    mLCD->display(date.time().minute());
+    sLCD->display(date.time().second());
 }
 
 nettime::~nettime() {}
