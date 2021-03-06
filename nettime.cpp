@@ -18,7 +18,6 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
     slabel = new QLabel("Second",this);
 
     labCityText = new QLabel("Выбранный город: ", this); // Создание текстовой метки
-    selectCity = new QLabel("",this); // Создание текстовой метки для установки название выбранного города
 
     nettimeList = new QComboBox(this); // Создание выпадающего списка для городов (часовых поясов)
 
@@ -28,13 +27,6 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
     hbox = new QHBoxLayout(this); // Создание горизонтального компоновщика
 
     net = new QNetworkAccessManager(this);
-
-    timer = new QTimer(this);
-
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ОТЛАДОЧНАЯ ФИГНЯ  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    //cityTime = "http://worldtimeapi.org/api/timezone/Europe/Moscow";
-
 
     // +++++++++++++++++++++++++   НАСТРОЙКА ФУНКЦИОНАЛА   ++++++++++++++++++++++++++++++
 
@@ -66,8 +58,6 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
     nettimeList->addItem("Сахалин (МСК +8)");
     nettimeList->addItem("Анадырь (МСК +9)");
 
-    //selectCity->setText(nettimeList->itemText); // Устанавливает название выбранного города (часового пояса) из списка ComboBox
-
     // ***********************  ПОДКЛЮЧЕНИЕ СИГНАЛОВ К СЛОТАМ  **************************
 
     connect(mainmenu, &QPushButton::clicked, this, &QDialog::accept); // При нажатии на кнопку будет произведен возврат в главное меню
@@ -89,8 +79,8 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
     vbox->addWidget(requestButton, Qt::AlignHCenter);
     vbox->addWidget(mainmenu);
 
+    vboxLab->addStretch(1);
     vboxLab->addWidget(labCityText, Qt::AlignHCenter);
-    vboxLab->addWidget(selectCity);
     vboxLab->addWidget(nettimeList);
     vboxLab->addStretch(1); // Добавление коэффициента растяжения снизу
 
@@ -115,22 +105,14 @@ void nettime::onFinished(QNetworkReply *reply)
     {
         QMessageBox::warning(this,"Информация","Получены данные, идет обработка.");
         jsonData = QJsonDocument::fromJson(reply->readAll()); // Присваивание переменной типа QString полученных данных
-        // Для отладки. Запись в файл полученных данных.
-        //QString loc = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation); // СОздание строки, хранящей в себе путь к рабочему столу
-        //QFile filenettime(loc + "/timetext.txt"); // Создание файла ПУТЬ + ИМЯ ФАЙЛА
-        //filenettime.open(QFile::WriteOnly);
 
         timeValue = jsonData["datetime"].toString(); // Извлечение из JSON данных нужный элемент (через ключ)
         date = QDateTime::fromString(timeValue, Qt::ISODateWithMs); // Присваивание извлеченных данных объекту для даты и времени
 
-        //time = date.time();
-
-
+        timer = new QTimer(this);
         connect(timer, &QTimer::timeout, this, &nettime::time_update); // для обновления показаний на LCD
         timer->start(1000); // Обновление раз в 1 сек
 
-        //filenettime.write(timeValue.toUtf8()); // запись в файл
-        //filenettime.close();
     }
     else
     {
@@ -142,6 +124,7 @@ void nettime::onFinished(QNetworkReply *reply)
 
 void nettime::time_update()
 {
+    date.setTime(date.time().addSecs(1));
 
     // Установка значений из QDateTime в дсиплеи
     hLCD->display(date.time().hour());

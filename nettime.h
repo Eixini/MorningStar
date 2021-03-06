@@ -13,12 +13,9 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QDateTime>
-#include <QTime>
 #include <QTimer>
 
 #include <QMessageBox>
-#include <QStandardPaths>
-#include <QFile>
 #include <QJsonObject>
 #include <QJsonDocument>
 
@@ -56,7 +53,6 @@ private:
     QLabel *slabel;
 
     QLabel *labCityText; // Создание объекта тектовой метки для подписи выбираемого города
-    QLabel *selectCity; // Создание объекта текстовой метки для выбранного города
 
     QGridLayout *grid; // Создание объекта сетчетого компоновщика
     QHBoxLayout *hbox; // Создание объекта горизонтального компоновщика
