@@ -5,6 +5,7 @@ info::info(QDialog *parent) : QDialog(parent)
 
     QVBoxLayout *vertBox = new QVBoxLayout(this); // создание вертикального компоновщика
     QFormLayout *flayout = new QFormLayout(); // создание компоновщика для Описание-QLabel
+    info_image = new QLabel(this);
 
     mainmenu = new QPushButton("Вернуться в меню", this); // Создание кнопки для возврата в главное окно
     mainmenu->setFixedSize(180,30); // Установка фиксированного размера кнопки
@@ -25,6 +26,8 @@ info::info(QDialog *parent) : QDialog(parent)
     labkernel = new QLabel(kernel);
     labtypeos = new QLabel(typeOS);
 
+    info_image->setPixmap(QPixmap(":/morningstar_resources/images/zero_image"));
+
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~ Настройка кнопки ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     connect(mainmenu,&QPushButton::clicked, this, &QDialog::accept); // сигнал Нажатие кнопки - принятие и возврат к главному окну
@@ -40,6 +43,7 @@ info::info(QDialog *parent) : QDialog(parent)
     vertBox->addWidget(infotext,1, Qt::AlignHCenter);
     vertBox->addWidget(infodev,1,Qt::AlignLeft);
     vertBox->addLayout(flayout, Qt::AlignHCenter);
+    vertBox->addWidget(info_image, 1, Qt::AlignHCenter);
     vertBox->addWidget(mainmenu,1, Qt::AlignHCenter);
 
     setLayout(vertBox); // установка компоновщика в качестве главного
