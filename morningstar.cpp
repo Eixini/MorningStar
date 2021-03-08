@@ -10,29 +10,28 @@ MorningStar::MorningStar(QWidget *parent): QWidget(parent)
 
    nettime = new QPushButton("Точное время", this); // создание кнопки для получения точного времени из интернета
    nettime->setSizePolicy(QSizePolicy::Expanding , QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
-   nettime->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/clock_icon")); // устанавливает иконку в кнопку
+   nettime->setIcon(QIcon(":/morningstar_resources/icons/clock_icon")); // устанавливает иконку в кнопку
 
    noteButton = new QPushButton("Заметки", this); // создание кнопки для меню заметок
    noteButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
-   noteButton->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/clipboard_icon")); // устанавливает иконку в кнопку
+   noteButton->setIcon(QIcon(":/morningstar_resources/icons/clipboard_icon")); // устанавливает иконку в кнопку
 
    timer = new QPushButton("Таймер", this); // создание кнопки для установки таймера
    timer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
-   timer->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/timer_icon")); // устанавливает иконку в кнопку
+   timer->setIcon(QIcon(":/morningstar_resources/icons/timer_icon")); // устанавливает иконку в кнопку
 
    randnum = new QPushButton("Случайное число", this); // создание кнопки для генерации случайного числа в настраиваемом диапозоне
    randnum->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
-   randnum->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/ball_icon")); // устанавливает иконку в кнопку
+   randnum->setIcon(QIcon(":/morningstar_resources/icons/ball_icon")); // устанавливает иконку в кнопку
 
    info = new QPushButton("О Приложении", this); // создание кнопки для вывода информации о приложении
    info->setSizePolicy(QSizePolicy::Expanding , QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
-   info->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/info_icon")); // устанавливает иконку в кнопку
+   info->setIcon(QIcon(":/morningstar_resources/icons/info_icon")); // устанавливает иконку в кнопку
 
    quit = new QPushButton("Выход", this); // создание кнопки для выхода из приложения
    quit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // установка политики размера (увеличение вместе с главным окном)
-   quit->setIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/door_icon")); // установка иконки для кнопки
+   quit->setIcon(QIcon(":/morningstar_resources/icons/door_icon")); // установка иконки для кнопки
    quit->setShortcut(tr("Alt+Q")); // установка горячей клавиши для кнопки выхода, при нажатии комбинации Alt+
-
 
    connect(quit, &QPushButton::clicked, qApp, &QApplication::quit); // при нажатии на кнопку "Выход" приложение будет закрываться
    connect(info, &QPushButton::clicked, this, &MorningStar::showInfo); // открытие окна с информацией
@@ -59,9 +58,9 @@ void MorningStar::showInfo()
     class info infoWin;
 
     infoWin.setModal(true);
-    infoWin.setFixedSize(280,180); // установка фиксированного размера
+    infoWin.setFixedSize(300,410); // установка фиксированного размера
     infoWin.setWindowTitle("О Приложении"); // установка заголовка окна
-    infoWin.setWindowIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/info_icon")); // Установка иконки для окна
+    infoWin.setWindowIcon(QIcon(":/morningstar_resources/icons/info_icon")); // Установка иконки для окна
 
     infoWin.exec();
 }
@@ -72,19 +71,18 @@ void MorningStar::showRand()
 
     randWin.setModal(true);
     randWin.setWindowTitle("Случайное число"); // Установка заголовка для окна
-    randWin.setWindowIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/ball_icon")); // установка иконки для окна
+    randWin.setWindowIcon(QIcon(":/morningstar_resources/icons/ball_icon")); // установка иконки для окна
     randWin.setFixedSize(250,180); // установка фиксированного размера
     randWin.exec();
 }
 
 void MorningStar::showTimer()
 {
-
     class timer timerWin;
 
     timerWin.setModal(true);
     timerWin.setWindowTitle("Таймер");
-    timerWin.setWindowIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/timer_icon"));
+    timerWin.setWindowIcon(QIcon(":/morningstar_resources/icons/timer_icon"));
     timerWin.exec();
 }
 
@@ -95,7 +93,7 @@ void MorningStar::showNote()
 
     noteWin.setModal(true);
     noteWin.setWindowTitle("Заметки");
-    noteWin.setWindowIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/clipboard_icon"));
+    noteWin.setWindowIcon(QIcon(":/morningstar_resources/icons/clipboard_icon"));
     noteWin.note_read(); // вызов метода для чтения заметок из файла
 
     noteWin.exec();
@@ -107,7 +105,7 @@ void MorningStar::showNettime()
 
     nettimeWin.setModal(true);
     nettimeWin.setWindowTitle("Точное время");
-    nettimeWin.setWindowIcon(QIcon("/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/File_for_Project/icons/clock_icon"));
+    nettimeWin.setWindowIcon(QIcon(":/morningstar_resources/icons/clock_icon"));
 
     nettimeWin.exec();
 }
