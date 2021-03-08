@@ -14,9 +14,7 @@
 #include <QLabel>
 #include <QDateTime>
 #include <QTimer>
-
 #include <QMessageBox>
-#include <QJsonObject>
 #include <QJsonDocument>
 
 class nettime : public QDialog

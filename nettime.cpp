@@ -28,6 +28,8 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
 
     net = new QNetworkAccessManager(this);
 
+    timer = new QTimer(this);
+
     // +++++++++++++++++++++++++   НАСТРОЙКА ФУНКЦИОНАЛА   ++++++++++++++++++++++++++++++
 
     // Установка количество символов в LCD
@@ -39,11 +41,6 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
     hLCD->setSegmentStyle(QLCDNumber::Flat);
     mLCD->setSegmentStyle(QLCDNumber::Flat);
     sLCD->setSegmentStyle(QLCDNumber::Flat);
-
-    // Установка значений в 0
-    hLCD->display(0);
-    mLCD->display(0);
-    sLCD->display(0);
 
     //Добавление городов (часовых поясов) в список
     nettimeList->addItem("Калининград (МСК -1)");
@@ -63,6 +60,8 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
     connect(mainmenu, &QPushButton::clicked, this, &QDialog::accept); // При нажатии на кнопку будет произведен возврат в главное меню
     connect(requestButton, &QPushButton::clicked, this, &nettime::TimeRequest);
     connect(net, &QNetworkAccessManager::finished, this, &nettime::onFinished);
+    connect(timer, &QTimer::timeout, this, &nettime::time_update); // для обновления показаний на LCD
+    timer->start(1000); // Обновление раз в 1 сек
 
     // ^^^^^^^^^^^^^^^^^^^^^^^     УПРАВЛЕНИЕ КОМПОНОВКОЙ     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -93,6 +92,7 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
 
 void nettime::TimeRequest()
 {
+
     // Для запроса времени из интернета
     QMessageBox::warning(this,"Информация","Происходит запрос данных.");
     net->get(QNetworkRequest(QUrl(city[nettimeList->currentIndex()]))); // запрос на данные
@@ -101,17 +101,15 @@ void nettime::TimeRequest()
 
 void nettime::onFinished(QNetworkReply *reply)
 {
+
     if(reply->error() == QNetworkReply::NoError)
     {
+
         QMessageBox::warning(this,"Информация","Получены данные, идет обработка.");
         jsonData = QJsonDocument::fromJson(reply->readAll()); // Присваивание переменной типа QString полученных данных
 
         timeValue = jsonData["datetime"].toString(); // Извлечение из JSON данных нужный элемент (через ключ)
         date = QDateTime::fromString(timeValue, Qt::ISODateWithMs); // Присваивание извлеченных данных объекту для даты и времени
-
-        timer = new QTimer(this);
-        connect(timer, &QTimer::timeout, this, &nettime::time_update); // для обновления показаний на LCD
-        timer->start(1000); // Обновление раз в 1 сек
 
     }
     else
@@ -119,17 +117,18 @@ void nettime::onFinished(QNetworkReply *reply)
         QMessageBox::warning(this, "Ошибка",reply->errorString());
     }
 
-    reply->deleteLater();
+    reply->deleteLater(); // Удаление запроса позже
 }
 
 void nettime::time_update()
 {
-    date.setTime(date.time().addSecs(1));
+    date.setTime(date.time().addSecs(1)); // Увеличение времени на 1 секунду
 
-    // Установка значений из QDateTime в дсиплеи
+    // Установка значений из QDateTime в дисплеи
     hLCD->display(date.time().hour());
     mLCD->display(date.time().minute());
     sLCD->display(date.time().second());
+
 }
 
 nettime::~nettime() {}
