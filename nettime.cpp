@@ -92,8 +92,8 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
 
 void nettime::TimeRequest()
 {
-
     // Для запроса времени из интернета
+
     QMessageBox::warning(this,"Информация","Происходит запрос данных.");
     net->get(QNetworkRequest(QUrl(city[nettimeList->currentIndex()]))); // запрос на данные
 
