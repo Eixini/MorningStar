@@ -100,8 +100,15 @@ void note::note_read() // Слот для считывания заметок и
 
     // Проверка, существует ли файл
 
-    QString path = QStandardPaths::locate(QStandardPaths::ConfigLocation , "note_morningstar.txt");
-    QString loc = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+    QString path = QStandardPaths::locate(QStandardPaths::AppConfigLocation , "note_morningstar.txt");
+    QString loc = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+
+    QDir dir("MorningStar_Zero"); // СОздание объекта директории, для проверка на наличие папки приложения и ее создании ( если таковая отсутсвует)
+    if(!dir.exists())
+    {
+        dir.setPath(QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation));
+        dir.mkdir("MorningStar_Zero");
+    }
 
     if(path != "")
      {
@@ -125,7 +132,7 @@ void note::note_read() // Слот для считывания заметок и
     else
     {
         QMessageBox::warning(this, "Информация", "Файл не найден! Создается новый!");
-        QString loc = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+        QString loc = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
         QFile note_file(loc + "/note_morningstar.txt");
         note_file.open(QIODevice::WriteOnly);
         note_file.close();
@@ -136,7 +143,7 @@ void note::note_read() // Слот для считывания заметок и
 void note::saveNote() // слот для сохранение изменений в файл перед закрытием окна заметок
 {
     // Проверка, существует ли файл , открыт ли файл, доступен ли он для считывание информации и т.д
-        QString path = QStandardPaths::locate(QStandardPaths::ConfigLocation , "note_morningstar.txt");
+        QString path = QStandardPaths::locate(QStandardPaths::AppConfigLocation , "note_morningstar.txt");
         QFile noteTxt(path); // Создание объекта для работы с файлом
         noteTxt.open(QIODevice::WriteOnly); // Открытие файла (и установка режима - только чтение)
 
