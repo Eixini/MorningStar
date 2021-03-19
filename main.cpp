@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QSplashScreen>
 #include <QIcon>
+#include <QStyle>
 
 int main(int argc, char *argv[])
 {
@@ -17,6 +18,7 @@ int main(int argc, char *argv[])
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   Главное окно   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     MorningStar window; // создание главного окна
+    QApplication::setStyle("windows"); // установка стиля для приложения
     window.setWindowTitle("Morning Star v. Zero"); // установка заголовка на главное окно
     window.setWindowIcon(QIcon(":/morningstar_resources/icons/ms_icon")); // установка иконки для главного окна
     window.setFixedSize(300,250); // установка размера главного окна
