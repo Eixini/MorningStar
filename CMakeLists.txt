@@ -84,3 +84,8 @@ endif()
 
 target_link_libraries(MorningStar_Zero PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(MorningStar_Zero PRIVATE Qt${QT_VERSION_MAJOR}::Network)
+
+# Installing main exe
+include(GNUInstallDirs)
+install(PROGRAMS $<TARGET_FILE:MorningStar_Zero> DESTINATION ${CMAKE_INSTALL_BINDIR})
+
