@@ -75,7 +75,7 @@ void note::editNote()
 
     // +++++++++++++++++++ Работа с Сигналами ++++++++++++++++++++++++++++
 
-    connect(editTitleNote, &QLineEdit::editingFinished,this,&note::setNoteNameText);
+    connect(editTitleNote, &QLineEdit::editingFinished, this, &note::setNoteNameText);
 
     // ======================== Компноновка ==============================
 
@@ -91,7 +91,7 @@ void note::removeNote() // Удаление заметки
     if(notelist)
     {
                QList< QListWidgetItem* > items = notelist->selectedItems();
-               foreach( QListWidgetItem* item, items )
+               foreach( QListWidgetItem *item, items )
                {
                    int row = notelist->row( item );
                    notelist->takeItem( row );
@@ -112,7 +112,7 @@ void note::note_read() // Слот для считывания заметок и
 
     // Проверка, существует ли файл
 
-    QString path = QStandardPaths::locate(QStandardPaths::AppConfigLocation , "note_morningstar.txt");
+    QString path = QStandardPaths::locate(QStandardPaths::AppConfigLocation, "note_morningstar.txt");
     QString loc = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
 
     QDir dir("MorningStar_Zero"); // СОздание объекта директории, для проверка на наличие папки приложения и ее создании ( если таковая отсутсвует)
@@ -155,22 +155,22 @@ void note::note_read() // Слот для считывания заметок и
 void note::saveNote() // слот для сохранение изменений в файл перед закрытием окна заметок
 {
     // Проверка, существует ли файл , открыт ли файл, доступен ли он для считывание информации и т.д
-        QString path = QStandardPaths::locate(QStandardPaths::AppConfigLocation , "note_morningstar.txt");
-        QFile noteTxt(path); // Создание объекта для работы с файлом
-        noteTxt.open(QIODevice::WriteOnly); // Открытие файла (и установка режима - только чтение)
+    QString path = QStandardPaths::locate(QStandardPaths::AppConfigLocation, "note_morningstar.txt");
+    QFile noteTxt(path); // Создание объекта для работы с файлом
+    noteTxt.open(QIODevice::WriteOnly); // Открытие файла (и установка режима - только чтение)
 
-        // Запись в файл конечный результата работы (что имеется в списке QListWidget)
+    // Запись в файл конечный результата работы (что имеется в списке QListWidget)
 
-        if(notelist)
+    if(notelist)
+    {
+        for (int i = 0; i < notelist->count(); ++i)
         {
-            for (int i = 0; i < notelist->count(); ++i)
-            {
-              QListWidgetItem* item = notelist->item(i);
-              noteTxt.write(item->text().toUtf8());
-              noteTxt.write("\n");
-            }
+          QListWidgetItem *item = notelist->item(i);
+          noteTxt.write(item->text().toUtf8());
+          noteTxt.write("\n");
         }
-        noteTxt.close(); // Закрытие файла
+    }
+    noteTxt.close(); // Закрытие файла
 }
 
 note::~note() {}

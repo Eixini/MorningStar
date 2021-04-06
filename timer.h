@@ -58,7 +58,6 @@ private slots:
     void showMessage(); // Слот для показа сообщения об истечении таймера
 
 
-
 };
 
 #endif // TIMER_H
