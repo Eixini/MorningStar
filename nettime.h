@@ -29,7 +29,7 @@ public:
 
 private:
 
-    static const int SITIES = 11; // Константа для хранения количества часовых поясов
+    static const int CITIES = 11; // Константа для хранения количества часовых поясов
 
     QPushButton *mainmenu; // Создание объекта кнопки для возврата в главное меню
     QPushButton *requestButton; // Создание объекта кнопки для запроса точного времени из интернета
@@ -64,7 +64,7 @@ private:
     QString dataTime; // Для хранения полученных данных
     QString timeValue; // Для хранение извлеченных данных из JSON документа
 
-    QString city[SITIES] = {
+    QString city[CITIES] = {
                             "http://worldtimeapi.org/api/timezone/Europe/Kaliningrad",
                             "http://worldtimeapi.org/api/timezone/Europe/Moscow",
                             "http://worldtimeapi.org/api/timezone/Europe/Samara",
