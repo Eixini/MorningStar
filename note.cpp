@@ -1,5 +1,17 @@
 #include "note.h"
 
+#include <QDir>
+#include <QFile>
+#include <QFormLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QListWidget>
+#include <QLineEdit>
+#include <QMessageBox>
+#include <QPushButton>
+#include <QStandardPaths>
+#include <QVBoxLayout>
+
 note::note(QDialog *parent) : QDialog(parent)
 {
     // ~~~~~~~~~~~~~~~~~~~~~~~~~  ИНИЦИАЛИЗАЦИЯ ОБЪЕКТОВ  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

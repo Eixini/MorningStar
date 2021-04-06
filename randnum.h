@@ -1,19 +1,14 @@
 #ifndef RANDNUM_H
 #define RANDNUM_H
 
-#include <QWidget>
 #include <QDialog>
-#include <QWindow>
-#include <QPushButton>
-#include <QLabel>
-#include <QTextEdit>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QSpinBox>
+#include <QObject>
 
-#include <ctime>
-
-#include "morningstar.h"
+class QHBoxLayout;
+class QLabel;
+class QPushButton;
+class QSpinBox;
+class QVBoxLayout;
 
 class randnum : public QDialog
 {

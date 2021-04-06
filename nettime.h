@@ -1,21 +1,24 @@
 #ifndef NETTIME_H
 #define NETTIME_H
 
-#include <QWidget>
 #include <QDialog>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QPushButton>
-#include <QComboBox>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QLCDNumber>
-#include <QGridLayout>
-#include <QLabel>
+
 #include <QDateTime>
-#include <QTimer>
-#include <QMessageBox>
 #include <QJsonDocument>
+
+#include <QString>
+#include <QObject> // Q_OBJECT
+
+// упреждающие определения классов, чтобы не подключать заголовочные файлы
+// в наш заголовочный файл.
+class QComboBox;
+class QGridLayout;
+class QHBoxLayout;
+class QLCDNumber;
+class QLabel;
+class QNetworkAccessManager;
+class QNetworkReply;
+class QVBoxLayout;
 
 class nettime : public QDialog
 {

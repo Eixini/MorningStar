@@ -1,19 +1,13 @@
 #ifndef INFO_H
 #define INFO_H
 
-#include <QWidget>
 #include <QDialog>
-#include <QApplication>
-#include <QWindow>
-#include <QIcon>
-#include <QLabel>
-#include <QTextEdit>
-#include <QPushButton>
-#include <QAbstractButton>
-#include <QVBoxLayout>
-#include <QFormLayout>
-#include <QSysInfo>
-#include <QPixmap>
+#include <QObject> // Q_OBJECT
+
+// упреждающие определения классов, чтобы не подключать заголовочные файлы
+// в наш заголовочный файл.
+class QLabel;
+class QPushButton;
 
 class info : public QDialog
 {

@@ -1,5 +1,11 @@
 #include "info.h"
 
+#include <QFormLayout>
+#include <QLabel>
+#include <QPixmap>
+#include <QPushButton>
+#include <QVBoxLayout>
+
 info::info(QDialog *parent) : QDialog(parent)
 {
 

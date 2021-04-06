@@ -2,24 +2,16 @@
 #define NOTE_H
 
 #include <QDialog>
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QListWidget>
-#include <QListWidgetItem>
-#include <QIcon>
-#include <QLineEdit>
-#include <QFormLayout>
-#include <QList>
-#include <QFile>
-#include <QDebug>
-#include <QTextStream>
-#include <QMessageBox>
-#include <QString>
-#include <QStandardPaths>
-#include <QDir>
+#include <QObject>
 
-#include "morningstar.h"
+class QFile;
+class QHBoxLayout;
+class QFormLayout;
+class QLabel;
+class QLineEdit;
+class QListWidget;
+class QPushButton;
+class QVBoxLayout;
 
 class note : public QDialog
 {

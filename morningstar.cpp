@@ -1,5 +1,17 @@
 #include "morningstar.h"
 
+#include "info.h"
+#include "randnum.h"
+#include "timer.h"
+#include "note.h"
+#include "nettime.h"
+
+#include <QApplication>
+#include <QIcon>
+#include <QPushButton>
+#include <QVBoxLayout>
+
+
 MorningStar::MorningStar(QWidget *parent): QWidget(parent)
 {
 

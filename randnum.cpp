@@ -1,5 +1,13 @@
 #include "randnum.h"
 
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QSpinBox>
+#include <QVBoxLayout>
+
+#include <ctime>
+
 randnum::randnum(QDialog *parent) : QDialog(parent)
 {
     // +++++++++++++++++++++++++++++++++ ИНИЦИАЛИЗАЦИЯ ОБЪЕКТОВ +++++++++++++++++++++++++++

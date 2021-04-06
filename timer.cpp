@@ -1,5 +1,21 @@
 #include "timer.h"
 
+#include <QWidget>
+#include <QDialog>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QLCDNumber>
+#include <QPushButton>
+#include <QLabel>
+#include <QSpinBox>
+#include <QSpacerItem>
+#include <QTimer>
+#include <QMessageBox>
+#include <QIcon>
+
+#include <QProgressBar>
+#include <QThread>
+
 timer::timer(QDialog *parent) : QDialog(parent)
 {
     // +++++++++++++++++++++++++ ИНИЦИАЛИЗАЦИЯ ОБЪЕКТОВ +++++++++++++++++++++++++
