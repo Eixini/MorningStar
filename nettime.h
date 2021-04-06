@@ -1,21 +1,24 @@
 #ifndef NETTIME_H
 #define NETTIME_H
 
-#include <QWidget>
 #include <QDialog>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QPushButton>
-#include <QComboBox>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QLCDNumber>
-#include <QGridLayout>
-#include <QLabel>
+
 #include <QDateTime>
-#include <QTimer>
-#include <QMessageBox>
 #include <QJsonDocument>
+
+#include <QString>
+#include <QObject> // Q_OBJECT
+
+// упреждающие определения классов, чтобы не подключать заголовочные файлы
+// в наш заголовочный файл.
+class QComboBox;
+class QGridLayout;
+class QHBoxLayout;
+class QLCDNumber;
+class QLabel;
+class QNetworkAccessManager;
+class QNetworkReply;
+class QVBoxLayout;
 
 class nettime : public QDialog
 {
@@ -26,7 +29,7 @@ public:
 
 private:
 
-    static const int SITIES = 11; // Константа для хранения количества часовых поясов
+    static const int CITIES = 11; // Константа для хранения количества часовых поясов
 
     QPushButton *mainmenu; // Создание объекта кнопки для возврата в главное меню
     QPushButton *requestButton; // Создание объекта кнопки для запроса точного времени из интернета
@@ -61,7 +64,7 @@ private:
     QString dataTime; // Для хранения полученных данных
     QString timeValue; // Для хранение извлеченных данных из JSON документа
 
-    QString city[SITIES] = {
+    QString city[CITIES] = {
                             "http://worldtimeapi.org/api/timezone/Europe/Kaliningrad",
                             "http://worldtimeapi.org/api/timezone/Europe/Moscow",
                             "http://worldtimeapi.org/api/timezone/Europe/Samara",

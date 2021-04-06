@@ -1,5 +1,17 @@
 #include "nettime.h"
 
+#include <QComboBox>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QLCDNumber>
+#include <QMessageBox>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QPushButton>
+#include <QTimer>
+#include <QVBoxLayout>
+
 nettime::nettime(QDialog *parent) : QDialog(parent)
 {
     // ~~~~~~~~~~~~~~~~~~~~~~~~~  ИНИЦИАЛИЗАЦИЯ ОБЪЕКТОВ  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -13,9 +25,9 @@ nettime::nettime(QDialog *parent) : QDialog(parent)
     sLCD = new QLCDNumber(this);
 
     // Создание текстовых метод для подписи LCD
-    hlabel = new QLabel("Hour",this);
-    mlabel = new QLabel("Minute",this);
-    slabel = new QLabel("Second",this);
+    hlabel = new QLabel("Hour", this);
+    mlabel = new QLabel("Minute", this);
+    slabel = new QLabel("Second", this);
 
     labCityText = new QLabel("Выбранный город: ", this); // Создание текстовой метки
 
@@ -114,7 +126,7 @@ void nettime::onFinished(QNetworkReply *reply)
     }
     else
     {
-        QMessageBox::warning(this, "Ошибка",reply->errorString());
+        QMessageBox::warning(this, "Ошибка", reply->errorString());
     }
 
     reply->deleteLater(); // Удаление запроса позже

@@ -1,23 +1,18 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-#include <QWidget>
 #include <QDialog>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QLCDNumber>
-#include <QPushButton>
-#include <QLabel>
-#include <QSpinBox>
-#include <QSpacerItem>
-#include <QTimer>
-#include <QMessageBox>
-#include <QIcon>
+#include <QObject> // Q_OBJECT
 
-#include <QProgressBar>
-#include <QThread>
-
-#include "morningstar.h"
+// упреждающие определения классов, чтобы не подключать заголовочные файлы
+// в наш заголовочный файл.
+class QHBoxLayout;
+class QLCDNumber;
+class QLabel;
+class QPushButton;
+class QSpinBox;
+class QTimer;
+class QVBoxLayout;
 
 class timer : public QDialog
 {
@@ -61,7 +56,6 @@ private slots:
     void LCDValueHour(); // Слот для установки часов
     void cancelTimer(); // слот для отмены таймера
     void showMessage(); // Слот для показа сообщения об истечении таймера
-
 
 
 };

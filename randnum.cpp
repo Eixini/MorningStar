@@ -1,5 +1,13 @@
 #include "randnum.h"
 
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QSpinBox>
+#include <QVBoxLayout>
+
+#include <ctime>
+
 randnum::randnum(QDialog *parent) : QDialog(parent)
 {
     // +++++++++++++++++++++++++++++++++ ИНИЦИАЛИЗАЦИЯ ОБЪЕКТОВ +++++++++++++++++++++++++++
@@ -19,26 +27,26 @@ randnum::randnum(QDialog *parent) : QDialog(parent)
 
     // ------------------------------------ НАСТРОЙКА ПАРАМЕТРОВ ------------------------------
 
-    smin->setRange(0,INT_MAX-1); // Установка диапазона для ввода минимального значения
-    smax->setRange(1,INT_MAX); // Установка диапазона для ввода максимального значения
+    smin->setRange(0, INT_MAX - 1); // Установка диапазона для ввода минимального значения
+    smax->setRange(1, INT_MAX); // Установка диапазона для ввода максимального значения
 
     // ```````````````````````````````` настройка кнопки ````````````````````````````````
 
     connect(mainmenu, &QPushButton::clicked, this, &QDialog::accept); // Поключение кнопки для принятия результата и возврата в главное
-    connect(generate,&QPushButton::clicked, this, &randnum::ShowResult);
+    connect(generate, &QPushButton::clicked, this, &randnum::ShowResult);
 
     // ---------------------------- ПРОЦЕСС КОМПОНОВКИ _________________________________
 
     hbox->addWidget(smin);
     hbox->addWidget(smax);
 
-    vrange->addWidget(shownum, 1 , Qt::AlignHCenter);
-    vrange->addWidget(errorRange,1, Qt::AlignHCenter);
+    vrange->addWidget(shownum, 1, Qt::AlignHCenter);
+    vrange->addWidget(errorRange, 1, Qt::AlignHCenter);
     vrange->addLayout(hbox);
 
     vbox->addLayout(vrange);
     vbox->addWidget(generate, 1, Qt::AlignHCenter);
-    vbox->addWidget(mainmenu, 1 , Qt::AlignBottom);
+    vbox->addWidget(mainmenu, 1, Qt::AlignBottom);
 
     setLayout(vbox); // Установка вертикального компоновщика в качестве главного
 }
@@ -72,10 +80,7 @@ void randnum::ShowResult()
         RandNumber = min + (rand() % (max - min)); // Генерация случайного числа и сохранения его в переменной
         shownum->setText(QString::number(RandNumber)); // Конвертация из int в qstring и уставнока в метке для отображения
     }
-
-
 }
-
 
 randnum::~randnum()
 {

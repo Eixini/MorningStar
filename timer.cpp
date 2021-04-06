@@ -1,5 +1,21 @@
 #include "timer.h"
 
+#include <QWidget>
+#include <QDialog>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QLCDNumber>
+#include <QPushButton>
+#include <QLabel>
+#include <QSpinBox>
+#include <QSpacerItem>
+#include <QTimer>
+#include <QMessageBox>
+#include <QIcon>
+
+#include <QProgressBar>
+#include <QThread>
+
 timer::timer(QDialog *parent) : QDialog(parent)
 {
     // +++++++++++++++++++++++++ ИНИЦИАЛИЗАЦИЯ ОБЪЕКТОВ +++++++++++++++++++++++++
@@ -48,7 +64,7 @@ timer::timer(QDialog *parent) : QDialog(parent)
     connect(mainmenu, &QPushButton::clicked, this, &QDialog::accept); // СОздание сигнала-слота кнопки дял возврата в главное меню
 
     connect(setTimerButton, &QPushButton::clicked, this, &timer::LCDValueMin); // Применение значения со Спинбокса(мин) на LCD (мин)
-    connect(setTimerButton, &QPushButton::clicked,this, &timer::LCDValueHour); // Применение значения со Спинбокса(час) на LCD (час)
+    connect(setTimerButton, &QPushButton::clicked, this, &timer::LCDValueHour); // Применение значения со Спинбокса(час) на LCD (час)
     connect(startTimerButton, &QPushButton::clicked, this, &timer::startTimer); // Запуск таймера
     connect(cancelTimerButton, &QPushButton::clicked, this, &timer::cancelTimer);
    // =========================== УПРАВЛЕНИЕ КОМПОНОВКОЙ =========================
@@ -60,8 +76,8 @@ timer::timer(QDialog *parent) : QDialog(parent)
     hboxLCD->addWidget(hourLCD);
     hboxLCD->addWidget(minutLCD);
 
-    hboxLabel->addWidget(labhour, 1 , Qt::AlignCenter);
-    hboxLabel->addWidget(labmin, 1 , Qt::AlignCenter);
+    hboxLabel->addWidget(labhour, 1, Qt::AlignCenter);
+    hboxLabel->addWidget(labmin, 1, Qt::AlignCenter);
 
     vbox->addSpacing(30); // Добавление расстояние между элементами в компоновщике
     vbox->addLayout(hboxLabel);
@@ -91,8 +107,8 @@ void timer::startTimer()
         QMessageBox::warning(this,"Внимание! ", "Вы не установили время!");
     else
     {
-    timer_val->start(msec_val); // старт таймера
-    connect(timer_val,&QTimer::timeout, this, &timer::showMessage);
+        timer_val->start(msec_val); // старт таймера
+        connect(timer_val,&QTimer::timeout, this, &timer::showMessage);
     }
 }
 

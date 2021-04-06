@@ -1,5 +1,11 @@
 #include "info.h"
 
+#include <QFormLayout>
+#include <QLabel>
+#include <QPixmap>
+#include <QPushButton>
+#include <QVBoxLayout>
+
 info::info(QDialog *parent) : QDialog(parent)
 {
 
@@ -30,7 +36,7 @@ info::info(QDialog *parent) : QDialog(parent)
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~ Настройка кнопки ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    connect(mainmenu,&QPushButton::clicked, this, &QDialog::accept); // сигнал Нажатие кнопки - принятие и возврат к главному окну
+    connect(mainmenu, &QPushButton::clicked, this, &QDialog::accept); // сигнал Нажатие кнопки - принятие и возврат к главному окну
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -40,11 +46,11 @@ info::info(QDialog *parent) : QDialog(parent)
     flayout->addRow("ОС: ", labtypeos);                // создание компоновки описание - текст
 
     // Добавление виджетов в вертикальный компоновщик , а так же редактирование расположения в компоновщике
-    vertBox->addWidget(infotext,1, Qt::AlignHCenter);
-    vertBox->addWidget(infodev,1,Qt::AlignLeft);
+    vertBox->addWidget(infotext, 1, Qt::AlignHCenter);
+    vertBox->addWidget(infodev, 1, Qt::AlignLeft);
     vertBox->addLayout(flayout, Qt::AlignHCenter);
     vertBox->addWidget(info_image, 1, Qt::AlignHCenter);
-    vertBox->addWidget(mainmenu,1, Qt::AlignHCenter);
+    vertBox->addWidget(mainmenu, 1, Qt::AlignHCenter);
 
     setLayout(vertBox); // установка компоновщика в качестве главного
 }

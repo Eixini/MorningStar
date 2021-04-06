@@ -1,20 +1,9 @@
 #ifndef MORNINGSTAR_H
 #define MORNINGSTAR_H
 
-#include <QApplication>
 #include <QWidget>
-#include <QVBoxLayout>
-#include <QAbstractButton>
-#include <QPushButton>
-#include <QIcon>
-#include <QWindow>
-#include <QFile>
 
-#include "info.h"
-#include "randnum.h"
-#include "timer.h"
-#include "note.h"
-#include "nettime.h"
+class QPushButton;
 
 class MorningStar : public QWidget
 {

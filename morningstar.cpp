@@ -1,5 +1,17 @@
 #include "morningstar.h"
 
+#include "info.h"
+#include "randnum.h"
+#include "timer.h"
+#include "note.h"
+#include "nettime.h"
+
+#include <QApplication>
+#include <QIcon>
+#include <QPushButton>
+#include <QVBoxLayout>
+
+
 MorningStar::MorningStar(QWidget *parent): QWidget(parent)
 {
 
@@ -58,7 +70,7 @@ void MorningStar::showInfo()
     class info infoWin;
 
     infoWin.setModal(true);
-    infoWin.setFixedSize(300,410); // установка фиксированного размера
+    infoWin.setFixedSize(300, 410); // установка фиксированного размера
     infoWin.setWindowTitle("О Приложении"); // установка заголовка окна
     infoWin.setWindowIcon(QIcon(":/morningstar_resources/icons/info_icon")); // Установка иконки для окна
 
@@ -72,7 +84,7 @@ void MorningStar::showRand()
     randWin.setModal(true);
     randWin.setWindowTitle("Случайное число"); // Установка заголовка для окна
     randWin.setWindowIcon(QIcon(":/morningstar_resources/icons/ball_icon")); // установка иконки для окна
-    randWin.setFixedSize(250,180); // установка фиксированного размера
+    randWin.setFixedSize(250, 180); // установка фиксированного размера
     randWin.exec();
 }
 
