@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/numbers/nixie_numbers">
+        <file alias="n0.png">qnixienumber_resource/nixie_numbers/n0</file>
+        <file alias="n1.png">qnixienumber_resource/nixie_numbers/n1</file>
+        <file alias="n2.png">qnixienumber_resource/nixie_numbers/n2</file>
+        <file alias="n3.png">qnixienumber_resource/nixie_numbers/n3</file>
+        <file alias="n4.png">qnixienumber_resource/nixie_numbers/n4</file>
+        <file alias="n5.png">qnixienumber_resource/nixie_numbers/n5</file>
+        <file alias="n6.png">qnixienumber_resource/nixie_numbers/n6</file>
+        <file alias="n7.png">qnixienumber_resource/nixie_numbers/n7</file>
+        <file alias="n8.png">qnixienumber_resource/nixie_numbers/n8</file>
+        <file alias="n9.png">qnixienumber_resource/nixie_numbers/n9</file>
+    </qresource>
+    <qresource prefix="/numbers/realnixie_numbers">
+        <file alias="rn0.png">qnixienumber_resource/realnixie_numbers/rn0</file>
+        <file alias="rn1.png">qnixienumber_resource/realnixie_numbers/rn1</file>
+        <file alias="rn2.png">qnixienumber_resource/realnixie_numbers/rn2</file>
+        <file alias="rn3.png">qnixienumber_resource/realnixie_numbers/rn3</file>
+        <file alias="rn4.png">qnixienumber_resource/realnixie_numbers/rn4</file>
+        <file alias="rn5.png">qnixienumber_resource/realnixie_numbers/rn5</file>
+        <file alias="rn6.png">qnixienumber_resource/realnixie_numbers/rn6</file>
+        <file alias="rn7.png">qnixienumber_resource/realnixie_numbers/rn7</file>
+        <file alias="rn8.png">qnixienumber_resource/realnixie_numbers/rn8</file>
+        <file alias="rn9.png">qnixienumber_resource/realnixie_numbers/rn9</file>
+    </qresource>
+</RCC>

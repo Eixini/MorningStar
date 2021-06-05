@@ -1,0 +1,35 @@
+<RCC>
+    <qresource prefix="/morningstar_resources/icons">
+        <file alias="apply_icon.png">morningstar_resource/icons/apply_icon</file>
+        <file alias="badge_icon.png">morningstar_resource/icons/badge_icon</file>
+        <file alias="ball_icon.png">morningstar_resource/icons/ball_icon</file>
+        <file alias="books_icon.png">morningstar_resource/icons/books_icon</file>
+        <file alias="bulb_icon.png">morningstar_resource/icons/bulb_icon</file>
+        <file alias="calendar_icon.png">morningstar_resource/icons/calendar_icon</file>
+        <file alias="clipboard_icon.png">morningstar_resource/icons/clipboard_icon</file>
+        <file alias="clock_icon.png">morningstar_resource/icons/clock_icon</file>
+        <file alias="door_icon.png">morningstar_resource/icons/door_icon</file>
+        <file alias="file_icon.png">morningstar_resource/icons/file_icon</file>
+        <file alias="gift_icon.png">morningstar_resource/icons/gift_icon</file>
+        <file alias="info_icon.png">morningstar_resource/icons/info_icon</file>
+        <file alias="key_icon.png">morningstar_resource/icons/key_icon</file>
+        <file alias="keyboard_icon.png">morningstar_resource/icons/keyboard_icon</file>
+        <file alias="maple_icon.png">morningstar_resource/icons/maple_icon</file>
+        <file alias="microphone_icon.png">morningstar_resource/icons/microphone_icon</file>
+        <file alias="monitor_icon.png">morningstar_resource/icons/monitor_icon</file>
+        <file alias="ms_icon.png">morningstar_resource/icons/ms_icon</file>
+        <file alias="notebook_icon.png">morningstar_resource/icons/notebook_icon</file>
+        <file alias="package_icon.png">morningstar_resource/icons/package_icon</file>
+        <file alias="phone_icon.png">morningstar_resource/icons/phone_icon</file>
+        <file alias="radio_icon.png">morningstar_resource/icons/radio_icon</file>
+        <file alias="satellite_icon.png">morningstar_resource/icons/satellite_icon</file>
+        <file alias="save_icon.png">morningstar_resource/icons/save_icon</file>
+        <file alias="signal_icon.png">morningstar_resource/icons/signal_icon</file>
+        <file alias="slider_icon.png">morningstar_resource/icons/slider_icon</file>
+        <file alias="tada_icon.png">morningstar_resource/icons/tada_icon</file>
+        <file alias="timer_icon.png">morningstar_resource/icons/timer_icon</file>
+        <file alias="tool_icon.png">morningstar_resource/icons/tool_icon</file>
+        <file alias="warning_icon.png">morningstar_resource/icons/warning_icon</file>
+        <file alias="x_icon.png">morningstar_resource/icons/x_icon</file>
+    </qresource>
+</RCC>
