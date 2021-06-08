@@ -119,6 +119,7 @@ void MorningStar::showTimer()
     timerWin.setModal(true);
     timerWin.setWindowTitle(tr("Timer"));
     timerWin.setWindowIcon(QIcon(":/morningstar_resources/icons/timer_icon.png"));
+    timerWin.setMinimumSize(400,370);
 
     timerWin.exec();
 }
