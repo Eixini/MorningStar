@@ -56,6 +56,12 @@ QVariant NoteModel::data(const QModelIndex &index, int role) const
     return filedata[index.row()][Column(index.column())];
 }
 
+QString NoteModel::noteType(const QModelIndex &index) const   {   return filedata[index.row()][NOTETYPE].toString();  }
+
+QString NoteModel::noteName(const QModelIndex &index) const   {   return filedata[index.row()][NOTENAME].toString();  }
+
+QString NoteModel::noteDate(const QModelIndex &index) const   {   return filedata[index.row()][CREATEDATE].toString();  }
+
 void NoteModel::appendData(QFile &file)
 {
     QFileInfo fileinfo(file);
