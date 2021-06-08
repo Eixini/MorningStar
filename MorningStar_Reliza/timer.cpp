@@ -69,6 +69,7 @@ timer::timer(QDialog *parent) : QDialog(parent)
     connect(setTimerButton, &QPushButton::clicked, this, &timer::NumberValueSecond); // Применение значения со Спинбокса(сек) на дисплей (час)
     connect(startTimerButton, &QPushButton::clicked, this, &timer::startTimer);
     connect(cancelTimerButton, &QPushButton::clicked, this, &timer::cancelTimer);
+    connect(mainmenu, &QPushButton::clicked, this, &QDialog::accept);
     if(sumSec == 0)
         connect(mainmenu, &QPushButton::clicked, this, &QDialog::accept); // Создание сигнала-слота кнопки дял возврата в главное меню
     else
