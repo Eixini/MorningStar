@@ -29,6 +29,17 @@
 #include <QModelIndexList>
 #include <QItemSelectionModel>
 
+/*     Вопросы, требующие внимания:
+
+    - реализовать прослушивание аудио заметки;
+    - добавить сортировку по столбцам;
+    - добавить ввод имени при создание голосовой заметки
+    - при просмотре текстовой заметки возможность редактировать содержимое и имя заметки(файла)
+
+    * (?) Возможно или нет, для 1 стоблца представления интерпретировать тип заметки (txt / wav ) в соответсвующие иконки;
+
+*/
+
 // ::::::::::::::::::::::::::::::::::::::::::::: Заголовки для WAV-файла ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 struct RIFFHeader
 {
@@ -93,6 +104,7 @@ note::note(QDialog *parent) : QDialog(parent)
         tableview->resizeColumnToContents(2);
         tableview->setSelectionMode(QAbstractItemView::SingleSelection);
         tableview->setSelectionBehavior(QAbstractItemView::SelectRows);           // Установка поведения - при выборе ячейки, выбирается вся строка
+        tableview->setSortingEnabled(true);
     }
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ СОЗДАНИЕ СОЕДИНЕНИЙ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     {
@@ -100,6 +112,7 @@ note::note(QDialog *parent) : QDialog(parent)
     connect(createTextNoteButton, &QPushButton::clicked, this, &note::createTextNote);   // Вызов окна для создания текстовой заметки
     connect(createVoiceNoteButton, &QPushButton::clicked, this, &note::createVoiceNote); // Вызов окна для создания голосовой заметки
     connect(deleteNoteButton, &QPushButton::clicked, this, &note::deleteNote);           // Удаление заметки
+    connect(tableview, &QTableView::doubleClicked, this, &note::showNote);
     }
     // ***************************************** УПРАВЛЕНИЕ КОМПОНОВКОЙ *****************************************
     {
@@ -122,6 +135,7 @@ void note::createTextNote()
     QDialog *textNoteWindow = new QDialog();                // Создание диалогового окна
 
     textNoteWindow->setWindowTitle(tr("Create new Text note"));
+    textNoteWindow->setWindowIcon(QIcon(":/morningstar_resources/icons/clipboard_icon.png"));
 
     QPushButton saveButtun(tr("Save"), textNoteWindow);                          // Кнопка для принятия установки изменения
     QPushButton cancelButton(tr("Cancel"), textNoteWindow);                      // Кнопка для отмены создания заметки
@@ -230,6 +244,57 @@ void note::createVoiceNote()
     voiceNoteWin->setLayout(&voiceNoteVBoxLayout);                              // Установка компоновщика в качестве основного
 
     voiceNoteWin->exec();
+}
+
+void note::showNote(const QModelIndex & index)
+{   // Слот для просмотра заметки
+
+    QString noteType = notemodel->noteType(index);
+
+    if("txt" == noteType)
+    {       /* Если тип заметки - текстовая, то создается соотвествующее окно */
+        QDialog *showTextNoteWin = new QDialog();
+        showTextNoteWin->setWindowTitle(tr("Show text note"));
+        showTextNoteWin->setWindowIcon(QIcon(":/morningstar_resources/icons/clipboard_icon.png"));
+
+        QSystemTrayIcon *trayiconShowTextNote = new QSystemTrayIcon(QIcon(":/morningstar_resources/icons/clipboard_icon.png"), showTextNoteWin);
+
+        QVBoxLayout *textNoteVLayout = new QVBoxLayout(showTextNoteWin);
+
+        QTextEdit showTextNote;
+        showTextNote.setReadOnly(true);
+
+        QString textNoteFilePath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation)
+                                    + "/MorningStar" + "/MorningStar_Reliza" + "/TextNote" + "/"
+                                    + notemodel->noteName(index) + '.' + noteType;
+
+        QFile textNoteFile(textNoteFilePath);
+        textNoteFile.open(QIODevice::ReadOnly);
+        if(textNoteFile.isOpen())
+            showTextNote.setText(textNoteFile.readAll());
+        else
+        {
+            trayiconShowTextNote->setVisible(true);
+            trayiconShowTextNote->showMessage(tr("Text note"),tr("File read error"));
+        }
+        trayiconShowTextNote->setVisible(false);
+
+
+        textNoteVLayout->addWidget(&showTextNote);
+
+        setLayout(textNoteVLayout);
+
+        textNoteFile.close();
+        showTextNoteWin->exec();
+    }
+    if("wav" == noteType)
+    {       /* Если тип заметки - голосовая, то создается соотвествующее окно */
+        QDialog *playVoiceNoteWin = new QDialog();
+        playVoiceNoteWin->setWindowTitle(tr("Play voice note"));
+        playVoiceNoteWin->setWindowIcon(QIcon(":/morningstar_resources/icons/microphone_icon.png"));
+
+        playVoiceNoteWin->exec();
+    }
 }
 
 void note::deleteNote()

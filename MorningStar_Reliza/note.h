@@ -74,6 +74,8 @@ private slots:
     void recorderStop();                     // Слот для окончания записи
     void handleStateChanged();               // Слот для информирвоания о состоянии записи
 
+    void showNote(const QModelIndex & index);                     // Слот для просмотра/воспроизведения заметки
+
 };
 
 #endif // NOTE_H
