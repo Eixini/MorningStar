@@ -142,6 +142,7 @@ void MorningStar::showRandnum()
     randnumWin.setModal(true);
     randnumWin.setWindowTitle(tr("Random number"));
     randnumWin.setWindowIcon(QIcon(":/morningstar_resources/icons/ball_icon.png"));
+    randnumWin.setFixedSize(615,230);
 
     randnumWin.exec();
 }
