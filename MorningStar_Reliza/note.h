@@ -24,6 +24,7 @@ class QSystemTrayIcon;
 class QString;
 class QStandardPatch;
 class QDir;
+class QMediaPlayer;
 
 class note : public QDialog
 {

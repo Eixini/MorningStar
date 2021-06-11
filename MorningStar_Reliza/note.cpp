@@ -1,7 +1,6 @@
 #include "note.h"
 
 #include <qendian.h>
-#include <QTableWidget>
 #include <QHeaderView>
 #include <QTableWidgetItem>
 #include <QTableView>
@@ -20,11 +19,16 @@
 #include <QFileInfo>
 #include <QModelIndex>
 #include <QTime>
+#include <QTimer>
 #include <QDate>
 #include <QDebug>
 #include <QMessageBox>
 #include <QRegExp>
 #include <QRegExpValidator>
+#include <QMediaPlayer>
+#include <QUrl>
+#include <QSlider>
+#include <QLabel>
 
 #include <QModelIndexList>
 #include <QItemSelectionModel>
@@ -264,6 +268,7 @@ void note::showNote(const QModelIndex & index)
         QTextEdit showTextNote;
         showTextNote.setReadOnly(true);
 
+        // Получение полного имени файла (путь + имя файла с суффиксом), в зависимости от выбранного элемента в списке заметок
         QString textNoteFilePath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation)
                                     + "/MorningStar" + "/MorningStar_Reliza" + "/TextNote" + "/"
                                     + notemodel->noteName(index) + '.' + noteType;
@@ -293,8 +298,116 @@ void note::showNote(const QModelIndex & index)
         playVoiceNoteWin->setWindowTitle(tr("Play voice note"));
         playVoiceNoteWin->setWindowIcon(QIcon(":/morningstar_resources/icons/microphone_icon.png"));
 
+        // Получение полного имени файла (путь + имя файла с суффиксом), в зависимости от выбранного элемента в списке заметок
+        QString voiceNoteFilePath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation)
+                                    + "/MorningStar" + "/MorningStar_Reliza" + "/VoiceNote" + "/"
+                                    + notemodel->noteName(index) + '.' + noteType;
+        /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++ ИНИЦИАЛИЗАЦИЯ ОБЪЕКТОВ ++++++++++++++++++++++++++++++++++++++++++++++++ */
+        QVBoxLayout *voiceNoteVLayout = new QVBoxLayout(playVoiceNoteWin);
+        QHBoxLayout layoutSlider;
+        QSlider audioProgressLine;
+        QPushButton playAndStopButton;
+        QPushButton stopButton;
+        QMediaPlayer *mediaPlayer = new QMediaPlayer;
+        QLabel currentAudioTime;                                        // Текстовая метка для хранения текущего времени проигрывания аудио-файла
+        QLabel durationAudioTime;                                       // Текстовая метка для хранения максимального времени аудио-файла
+        QTimer currentAudioTimer;
+
+        /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ НАСТРОЙКА ОБЪЕКТОВ  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+        audioProgressLine.setOrientation(Qt::Horizontal);
+        audioProgressLine.setMinimum(0);
+
+        stopButton.setText(tr("Stop"));
+
+        mediaPlayer->setMedia(QUrl::fromLocalFile(voiceNoteFilePath));
+        mediaPlayer->setVolume(50);
+        mediaPlayer->play();
+
+        currentAudioTime.setText(tr("Current"));
+        durationAudioTime.setText(tr("End"));
+
+        int curSec = 00;
+        int curMin = 00;
+        int curHour = 00;
+
+        int sliderPosition = 0;     // Для продвижения слайдера, в зависимости от пройденного времени (сек)
+
+        /* ====================================================== ПОДКЛЮЧЕНИЕ К СИГНАЛАМ ================================================ */
+        connect(mediaPlayer, &QMediaPlayer::durationChanged, playVoiceNoteWin,
+                [&]()
+        {
+            int dMSec = mediaPlayer->duration() % 1000;                  // Получение части мсек
+            int dMin = (mediaPlayer->duration() / 1000) / 60;            // Получение части мин
+            int dSec = (mediaPlayer->duration() / 1000) - (dMin * 60);   // Получени части сек
+            int dHour = 0;
+            if(dMin > 60)
+            {
+                dHour =  dMin / 60;
+                dMin-=(dHour*60);                                        // Изменение количества минут, так как значение превысило 60
+                durationAudioTime.setText(QString(QString::number(dHour) + ":" +QString::number(dMin) + ":" + QString::number(dSec) + "." + QString::number(dMSec)));
+            }
+            else
+                durationAudioTime.setText(QString(QString::number(dMin) + ":" + QString::number(dSec) + "." + QString::number(dMSec)));
+
+            audioProgressLine.setMaximum(mediaPlayer->duration() / 1000);     // Аккуратно! Если значение будет слишком большое (больше Инта), то будет плохо
+
+        }
+        );
+
+        currentAudioTimer.start(1000);
+        connect(&currentAudioTimer, &QTimer::timeout, playVoiceNoteWin, [&]()
+        {
+            if(mediaPlayer->state() == QMediaPlayer::PlayingState)
+            {
+                 curSec+=1;
+                 if(curSec>60)
+                 {
+                      curSec = 00;
+                      curMin+=1;
+                 }
+                if(curMin>60)
+                {
+                    curMin = 00;
+                    curHour+=1;
+                }
+
+                if(curHour <= 0)
+                    currentAudioTime.setText(QString(QString::number(curMin) + ":" + QString::number(curSec)));
+                else
+                    currentAudioTime.setText(QString(QString::number(curHour) + ":" + QString::number(curMin) + ":" + QString::number(curSec)));
+
+                sliderPosition+=1;
+                audioProgressLine.setSliderPosition(sliderPosition);
+            }
+            if(mediaPlayer->state() == QMediaPlayer::StoppedState)
+            {
+                currentAudioTime.setText("00:00");
+                sliderPosition = 0;
+                audioProgressLine.setSliderPosition(sliderPosition);
+            }
+        }
+                );
+
+        connect(&stopButton, &QPushButton::clicked, playVoiceNoteWin, [&](){mediaPlayer->stop(); });
+        connect(&stopButton, &QPushButton::clicked, playVoiceNoteWin, &QDialog::accept);
+        connect(playVoiceNoteWin, &QDialog::finished, playVoiceNoteWin, [&](){mediaPlayer->stop(); });
+
+        /* ...................................................... УПРАВЛЕНИЕ КОМПОНОВКОЙ ................................................ */
+
+        layoutSlider.addWidget(&currentAudioTime);
+        layoutSlider.addWidget(&audioProgressLine);
+        layoutSlider.addWidget(&durationAudioTime);
+
+        voiceNoteVLayout->addLayout(&layoutSlider);
+        voiceNoteVLayout->addWidget(&playAndStopButton);
+        voiceNoteVLayout->addWidget(&stopButton);
+
+        setLayout(voiceNoteVLayout);
+
         playVoiceNoteWin->exec();
     }
+
+
 }
 
 void note::deleteNote()
