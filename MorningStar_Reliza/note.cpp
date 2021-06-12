@@ -29,18 +29,19 @@
 #include <QUrl>
 #include <QSlider>
 #include <QLabel>
+#include <QComboBox>
 
 #include <QModelIndexList>
+#include <QSortFilterProxyModel>
 #include <QItemSelectionModel>
+
 
 /*     Вопросы, требующие внимания:
 
-    - реализовать прослушивание аудио заметки;
-    - добавить сортировку по столбцам;
-    - добавить ввод имени при создание голосовой заметки
-    - при просмотре текстовой заметки возможность редактировать содержимое и имя заметки(файла)
+    - добавить сортировку по столбцам (РАБОТАЕТ, НО НЕ СОВСЕМ КОРРЕКТНО - путанница в индексах);
 
-    * (?) Возможно или нет, для 1 стоблца представления интерпретировать тип заметки (txt / wav ) в соответсвующие иконки;
+    * (?) Возможно или нет, для 1 стоблца представления интерпретировать тип заметки (txt / wav ) в соответсвующие иконки
+                (ВОЗМОЖНОЕ РЕШЕНИЕ - КАСТОМНЫЙ ДЕЛЕГАТ, НАСЛЕДВОАНИЕ, ПЕРЕОПРЕДЕЛЕНИЕ МЕТОАД и УСТАНВОКА В ПРЕДСТАВЛЕНИЕ);
 
 */
 
@@ -90,6 +91,10 @@ note::note(QDialog *parent) : QDialog(parent)
     tableview        = new QTableView(this);              // Инициализация представления
     notemodel        = new NoteModel(this);               // Инициализация модели
 
+    sortmodel        = new QSortFilterProxyModel(this);
+
+    noteTypeComboBox = new QComboBox(this);
+
     }
     // +++++++++++++++++++++++++++++++++++++++++++ НАСТРОЙКА ОБЪЕКТОВ +++++++++++++++++++++++++++++++++++++++++++
     {
@@ -98,7 +103,14 @@ note::note(QDialog *parent) : QDialog(parent)
         deleteNoteButton->setIcon(QIcon(":/morningstar_resources/icons/x_icon.png"));
         toMainMenuButton->setIcon(QIcon(":/morningstar_resources/icons/ms_icon.png"));
 
-        tableview->setModel(notemodel);
+        noteTypeComboBox->addItem(tr("Show all note"));
+        noteTypeComboBox->addItem(tr("Show only text note"));
+        noteTypeComboBox->addItem(tr("Show only voice note"));
+
+        sortmodel->setDynamicSortFilter(false);                                   // Отключение динамической сортировки
+        sortmodel->setSourceModel(notemodel);
+
+        tableview->setModel(sortmodel);
         tableview->setCornerButtonEnabled(false);                                 // Выключить кнопку для выделения всех элементов
         tableview->horizontalHeader()->setStretchLastSection(true);               // Убрать белое пространство после последнего столбца
         tableview->setShowGrid(false);                                            // Скрыть показ сетки
@@ -109,6 +121,7 @@ note::note(QDialog *parent) : QDialog(parent)
         tableview->setSelectionMode(QAbstractItemView::SingleSelection);
         tableview->setSelectionBehavior(QAbstractItemView::SelectRows);           // Установка поведения - при выборе ячейки, выбирается вся строка
         tableview->setSortingEnabled(true);
+
     }
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ СОЗДАНИЕ СОЕДИНЕНИЙ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     {
@@ -117,12 +130,33 @@ note::note(QDialog *parent) : QDialog(parent)
     connect(createVoiceNoteButton, &QPushButton::clicked, this, &note::createVoiceNote); // Вызов окна для создания голосовой заметки
     connect(deleteNoteButton, &QPushButton::clicked, this, &note::deleteNote);           // Удаление заметки
     connect(tableview, &QTableView::doubleClicked, this, &note::showNote);
+    connect(noteTypeComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
+        [=](int index)
+        {
+        if(index == 1)
+        {
+            sortmodel->setFilterRegularExpression(QRegularExpression("txt"));
+            sortmodel->setFilterKeyColumn(0);
+        }
+        else if(index == 2)
+        {
+            sortmodel->setFilterRegularExpression(QRegularExpression("wav"));
+            sortmodel->setFilterKeyColumn(0);
+        }
+        else
+        {
+            sortmodel->setFilterRegularExpression(QRegularExpression("([a-z]){3}"));
+            sortmodel->setFilterKeyColumn(0);
+        }
+        }
+             );
     }
     // ***************************************** УПРАВЛЕНИЕ КОМПОНОВКОЙ *****************************************
     {
     buttonsLayout->addWidget(createTextNoteButton);
     buttonsLayout->addWidget(createVoiceNoteButton);
     buttonsLayout->addWidget(deleteNoteButton);
+    buttonsLayout->addWidget(noteTypeComboBox);
     buttonsLayout->addWidget(toMainMenuButton);
 
     headLayout->addLayout(buttonsLayout);
@@ -213,12 +247,35 @@ void note::createVoiceNote()
 
     QVBoxLayout voiceNoteVBoxLayout(voiceNoteWin);                              // Компоновщик для размещения в нем кнопок окна
 
+    QLineEdit voiceNoteTitle(voiceNoteWin);                                     // Поле ввода для названия текстовой заметки
+
+    QRegExp regexp("([a-zA-Zа-яА-Я0-9-_.]){255}");                               // Для ограничения по вводимым символам
+    QRegExpValidator REvalidator(regexp);
+
     QPushButton recordingStartButton(tr("Start"));                              // Кнопка для начала записи звука
     QPushButton recordingStopButton(tr("Stop"));                                // Кнопка для завершения записи звука
     QPushButton returnButton(tr("Return"));                                     // Кнопка для возврата в меню заметок
 
+    QFormLayout noteNameFormLayout;
+
+    /* :::::::::::::::::::::::::::::::::::::::::::::::::::::: НАСТРОЙКА ФУНКЦИОНАЛА ::::::::::::::::::::::::::::::::::::::::::::::::: */
+    voiceNoteTitle.setPlaceholderText(tr("Enter a name and then start recording ..."));   // Установка текста заполнителя
+
+    voiceNoteTitle.setValidator(&REvalidator);
+
+    recordingStartButton.setIcon(QIcon(":/morningstar_resources/icons/player/play_icon.png"));
+    recordingStopButton.setIcon(QIcon(":/morningstar_resources/icons/player/stop_icon.png"));
+
     /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++ ПОДКЛЮЧЕНИЕ К СИГНАЛАМ ++++++++++++++++++++++++++++++++++++++++++++++++ */
     connect(&returnButton, &QPushButton::clicked, voiceNoteWin, &QDialog::close);
+    connect(&recordingStartButton,&QPushButton::clicked, this,[&]()
+    {
+        if(voiceNoteTitle.text() != "")
+            *nameVoiceNote = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + "/MorningStar" + "/MorningStar_Reliza" + "/VoiceNote" + "/" + voiceNoteTitle.text() + ".wav";
+        else
+            generateNameForVoiceNote();
+    }
+            );
     connect(&recordingStartButton, &QPushButton::clicked, this, &note::recorderStart);
     connect(&recordingStopButton, &QPushButton::clicked, this, &note::recorderStop);
 
@@ -240,6 +297,9 @@ void note::createVoiceNote()
         audioForm = audioDeviceInfo.nearestFormat(audioForm);
     }
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ УПРАВЛЕНИЕ КОМПОНОВКОЙ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+    noteNameFormLayout.addRow(tr("Name: "), &voiceNoteTitle);
+
+    voiceNoteVBoxLayout.addLayout(&noteNameFormLayout);
     voiceNoteVBoxLayout.addWidget(&recordingStartButton);
     voiceNoteVBoxLayout.addWidget(&recordingStopButton);
     voiceNoteVBoxLayout.addStretch(1);
@@ -257,26 +317,46 @@ void note::showNote(const QModelIndex & index)
 
     if("txt" == noteType)
     {       /* Если тип заметки - текстовая, то создается соотвествующее окно */
+        /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++ ИНИЦИАЛИЗАЦИЯ ОБЪЕКТОВ ++++++++++++++++++++++++++++++++++++++++++++++++ */
         QDialog *showTextNoteWin = new QDialog();
-        showTextNoteWin->setWindowTitle(tr("Show text note"));
-        showTextNoteWin->setWindowIcon(QIcon(":/morningstar_resources/icons/clipboard_icon.png"));
 
         QSystemTrayIcon *trayiconShowTextNote = new QSystemTrayIcon(QIcon(":/morningstar_resources/icons/clipboard_icon.png"), showTextNoteWin);
-
         QVBoxLayout *textNoteVLayout = new QVBoxLayout(showTextNoteWin);
+        QHBoxLayout *buttonHLayout = new QHBoxLayout();
+
+        QPushButton editNoteButton;
+        QPushButton saveNoteButton;
+        QPushButton returnButton;
 
         QTextEdit showTextNote;
-        showTextNote.setReadOnly(true);
 
         // Получение полного имени файла (путь + имя файла с суффиксом), в зависимости от выбранного элемента в списке заметок
         QString textNoteFilePath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation)
                                     + "/MorningStar" + "/MorningStar_Reliza" + "/TextNote" + "/"
                                     + notemodel->noteName(index) + '.' + noteType;
+        /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ НАСТРОЙКА ОБЪЕКТОВ  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+        showTextNoteWin->setWindowTitle(tr("Show text note"));
+        showTextNoteWin->setWindowIcon(QIcon(":/morningstar_resources/icons/clipboard_icon.png"));
+
+        showTextNote.setReadOnly(true);
+
+        editNoteButton.setText(tr("Edit note"));
+        editNoteButton.setIcon(QIcon(":/morningstar_resources/icons/keyboard_icon.png"));
+        saveNoteButton.setText(tr("Save"));
+        saveNoteButton.setIcon(QIcon(":/morningstar_resources/icons/save_icon.png"));
+        returnButton.setText(tr("Return"));
+        returnButton.setIcon(QIcon(":/morningstar_resources/icons/file_icon.png"));
+
+        /* ::::::::::::::::::::::::::::::::::::::::::::::::::::::  РАБОТА С ФУНКЦИОНАЛОМ  ::::::::::::::::::::::::::::::::::::::::::::::: */
 
         QFile textNoteFile(textNoteFilePath);
         textNoteFile.open(QIODevice::ReadOnly);
         if(textNoteFile.isOpen())
+        {
             showTextNote.setText(textNoteFile.readAll());
+            textNoteFile.close();
+        }
         else
         {
             trayiconShowTextNote->setVisible(true);
@@ -284,12 +364,41 @@ void note::showNote(const QModelIndex & index)
         }
         trayiconShowTextNote->setVisible(false);
 
+        /* ====================================================== ПОДКЛЮЧЕНИЕ К СИГНАЛАМ ================================================ */
+        connect(&editNoteButton, &QPushButton::clicked, showTextNoteWin, [&]()
+        {
+            textNoteFile.open(QIODevice::ReadWrite);
+            if(textNoteFile.isOpen())
+            {
+                showTextNote.setText(textNoteFile.readAll());
+                showTextNote.setReadOnly(false);
+                connect(&saveNoteButton, &QPushButton::clicked, showTextNoteWin, [&]()
+                {
+                    textNoteFile.open(QIODevice::WriteOnly);
+                    textNoteFile.write(showTextNote.toPlainText().toUtf8());
+                    textNoteFile.close();
+                    showTextNote.setReadOnly(true);
+                }
+                        );
+            }
+            else
+            {
+                trayiconShowTextNote->setVisible(true);
+                trayiconShowTextNote->showMessage(tr("Text note"),tr("File edit error!"));
+            }
+            textNoteFile.close();
+        }
+                );
+        connect(&returnButton, &QPushButton::clicked, showTextNoteWin, &QDialog::accept);
+        /* ...................................................... УПРАВЛЕНИЕ КОМПОНОВКОЙ ................................................ */
+
+        buttonHLayout->addWidget(&editNoteButton);
+        buttonHLayout->addWidget(&saveNoteButton);
+        buttonHLayout->addWidget(&returnButton);
 
         textNoteVLayout->addWidget(&showTextNote);
+        textNoteVLayout->addLayout(buttonHLayout);
 
-        setLayout(textNoteVLayout);
-
-        textNoteFile.close();
         showTextNoteWin->exec();
     }
     if("wav" == noteType)
@@ -317,7 +426,8 @@ void note::showNote(const QModelIndex & index)
         audioProgressLine.setOrientation(Qt::Horizontal);
         audioProgressLine.setMinimum(0);
 
-        stopButton.setText(tr("Stop"));
+        playAndStopButton.setIcon(QIcon(":/morningstar_resources/icons/player/pause_icon.png"));
+        stopButton.setIcon(QIcon(":/morningstar_resources/icons/player/stop_icon.png"));
 
         mediaPlayer->setMedia(QUrl::fromLocalFile(voiceNoteFilePath));
         mediaPlayer->setVolume(50);
@@ -326,17 +436,10 @@ void note::showNote(const QModelIndex & index)
         currentAudioTime.setText(tr("Current"));
         durationAudioTime.setText(tr("End"));
 
-        int curSec = 00;
-        int curMin = 00;
-        int curHour = 00;
-
-        int sliderPosition = 0;     // Для продвижения слайдера, в зависимости от пройденного времени (сек)
-
         /* ====================================================== ПОДКЛЮЧЕНИЕ К СИГНАЛАМ ================================================ */
         connect(mediaPlayer, &QMediaPlayer::durationChanged, playVoiceNoteWin,
                 [&]()
         {
-            int dMSec = mediaPlayer->duration() % 1000;                  // Получение части мсек
             int dMin = (mediaPlayer->duration() / 1000) / 60;            // Получение части мин
             int dSec = (mediaPlayer->duration() / 1000) - (dMin * 60);   // Получени части сек
             int dHour = 0;
@@ -344,47 +447,60 @@ void note::showNote(const QModelIndex & index)
             {
                 dHour =  dMin / 60;
                 dMin-=(dHour*60);                                        // Изменение количества минут, так как значение превысило 60
-                durationAudioTime.setText(QString(QString::number(dHour) + ":" +QString::number(dMin) + ":" + QString::number(dSec) + "." + QString::number(dMSec)));
+                durationAudioTime.setText(QString(QString::number(dHour) + ":" +QString::number(dMin).rightJustified(2,'0') + ":" + QString::number(dSec).rightJustified(2,'0')));
             }
             else
-                durationAudioTime.setText(QString(QString::number(dMin) + ":" + QString::number(dSec) + "." + QString::number(dMSec)));
+                durationAudioTime.setText(QString(QString::number(dMin).rightJustified(2,'0') + ":" + QString::number(dSec).rightJustified(2,'0')));
 
-            audioProgressLine.setMaximum(mediaPlayer->duration() / 1000);     // Аккуратно! Если значение будет слишком большое (больше Инта), то будет плохо
+            audioProgressLine.setMaximum(mediaPlayer->duration());     // Аккуратно! Если значение будет слишком большое (больше Инта), то будет плохо
 
         }
         );
 
-        currentAudioTimer.start(1000);
-        connect(&currentAudioTimer, &QTimer::timeout, playVoiceNoteWin, [&]()
+        // При изменении позиции воспроизводимой аудио-записи, будет меняться позиция ползунка и текстовая метка с текущим временем
+        connect(mediaPlayer, &QMediaPlayer::positionChanged, playVoiceNoteWin, [&]()
+        {
+            int сMin = (mediaPlayer->position() / 1000) / 60;            // Получение части мин
+            int сSec = (mediaPlayer->position() / 1000) - (сMin * 60);   // Получени части сек
+            int сHour = 0;
+
+            if(сMin > 60)
+            {
+                сHour =  сMin / 60;
+                сMin-=(сHour*60);                                        // Изменение количества минут, так как значение превысило 60
+                currentAudioTime.setText(QString(QString::number(сHour) + ":" +QString::number(сMin).rightJustified(2,'0') + ":" + QString::number(сSec).rightJustified(2,'0')));
+            }
+            else
+                currentAudioTime.setText(QString(QString::number(сMin).rightJustified(2,'0') + ":" + QString::number(сSec).rightJustified(2,'0')));
+
+            audioProgressLine.setSliderPosition(mediaPlayer->position());
+        }
+                );
+
+        connect(&playAndStopButton, &QPushButton::clicked, mediaPlayer, [&]()
         {
             if(mediaPlayer->state() == QMediaPlayer::PlayingState)
             {
-                 curSec+=1;
-                 if(curSec>60)
-                 {
-                      curSec = 00;
-                      curMin+=1;
-                 }
-                if(curMin>60)
-                {
-                    curMin = 00;
-                    curHour+=1;
-                }
-
-                if(curHour <= 0)
-                    currentAudioTime.setText(QString(QString::number(curMin) + ":" + QString::number(curSec)));
-                else
-                    currentAudioTime.setText(QString(QString::number(curHour) + ":" + QString::number(curMin) + ":" + QString::number(curSec)));
-
-                sliderPosition+=1;
-                audioProgressLine.setSliderPosition(sliderPosition);
+                    mediaPlayer->pause();
             }
-            if(mediaPlayer->state() == QMediaPlayer::StoppedState)
+            else
             {
-                currentAudioTime.setText("00:00");
-                sliderPosition = 0;
-                audioProgressLine.setSliderPosition(sliderPosition);
+                   mediaPlayer->play();
             }
+        }
+                );
+
+        connect(&audioProgressLine, &QSlider::valueChanged, mediaPlayer, &QMediaPlayer::setPosition);
+
+        // В зависимости от состояния, будет меняться текст кнопки.
+        connect(mediaPlayer, &QMediaPlayer::stateChanged, playVoiceNoteWin, [&]()
+        {
+            if(mediaPlayer->state() == QMediaPlayer::PlayingState)
+                playAndStopButton.setIcon(QIcon(":/morningstar_resources/icons/player/pause_icon.png"));
+            if(mediaPlayer->state() == QMediaPlayer::PausedState)
+                playAndStopButton.setIcon(QIcon(":/morningstar_resources/icons/player/play_icon.png"));
+            if(mediaPlayer->state() == QMediaPlayer::StoppedState)
+                playAndStopButton.setIcon(QIcon(":/morningstar_resources/icons/player/play_icon.png"));
         }
                 );
 
@@ -401,8 +517,6 @@ void note::showNote(const QModelIndex & index)
         voiceNoteVLayout->addLayout(&layoutSlider);
         voiceNoteVLayout->addWidget(&playAndStopButton);
         voiceNoteVLayout->addWidget(&stopButton);
-
-        setLayout(voiceNoteVLayout);
 
         playVoiceNoteWin->exec();
     }
@@ -500,7 +614,7 @@ void note::noteRead()
 
 void note::recorderStart()
 {   // Слот для запуска записи
-    generateNameForVoiceNote();                                                   // Вызов метода для генерации имени для файла перед созданием нового файла
+
     audioFile.setFileName(*nameVoiceNote);
     audioFile.open( QIODevice::WriteOnly | QIODevice::Truncate );
     audioInput = new QAudioInput(audioForm, this);

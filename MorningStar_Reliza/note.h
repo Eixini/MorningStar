@@ -13,10 +13,12 @@
 class QTableView;
 class QHeaderView;
 class QTableWidget;
+class QSortFilterProxyModel;
 class QTableWidgetItem;
 class QHBoxLayout;
 class QVBoxLayout;
 class QPushButton;
+class QComboBox;
 class QTextEdit;
 class QLineEdit;
 class QIcon;
@@ -41,6 +43,7 @@ private:
 
     QTableView *tableview;                   // Создание объекта для хранения виджетов (текстовых и голосовых заметок)
     NoteModel *notemodel;                    // Создание объекта модели для предоставления способа работы с данными
+    QSortFilterProxyModel *sortmodel;         // Создание объекта для сортировки заметок
 
     QSystemTrayIcon *trayicon;               // Создание объекта для иконки панель задачь и показе информации
 
@@ -62,6 +65,7 @@ private:
     QAudioFormat audioForm;                           // Создание объекта для установок форматов для аудио
     QAudioDeviceInfo audioDeviceInfo;                 // Создание объекта для получение инофрмации об устройстве записи
 
+    QComboBox *noteTypeComboBox;                      // Для выбора фильтра отображения типа заметки
 
 private slots:
 
