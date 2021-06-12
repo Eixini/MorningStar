@@ -32,4 +32,9 @@
         <file alias="warning_icon.png">morningstar_resource/icons/warning_icon</file>
         <file alias="x_icon.png">morningstar_resource/icons/x_icon</file>
     </qresource>
+    <qresource prefix="/morningstar_resources/icons/player">
+        <file alias="play_icon.png">morningstar_resource/icons/player/play_icon</file>
+        <file alias="pause_icon.png">morningstar_resource/icons/player/pause_icon</file>
+        <file alias="stop_icon.png">morningstar_resource/icons/player/stop_icon</file>
+    </qresource>
 </RCC>
