@@ -1,4 +1,5 @@
 #include "note.h"
+#include "notetypedelegate.h"
 
 #include <qendian.h>
 #include <QHeaderView>
@@ -37,8 +38,6 @@
 
 
 /*     Вопросы, требующие внимания:
-
-    - добавить сортировку по столбцам (РАБОТАЕТ, НО НЕ СОВСЕМ КОРРЕКТНО - путанница в индексах);
 
     * (?) Возможно или нет, для 1 стоблца представления интерпретировать тип заметки (txt / wav ) в соответсвующие иконки
                 (ВОЗМОЖНОЕ РЕШЕНИЕ - КАСТОМНЫЙ ДЕЛЕГАТ, НАСЛЕДВОАНИЕ, ПЕРЕОПРЕДЕЛЕНИЕ МЕТОАД и УСТАНВОКА В ПРЕДСТАВЛЕНИЕ);
@@ -121,6 +120,7 @@ note::note(QDialog *parent) : QDialog(parent)
         tableview->setSelectionMode(QAbstractItemView::SingleSelection);
         tableview->setSelectionBehavior(QAbstractItemView::SelectRows);           // Установка поведения - при выборе ячейки, выбирается вся строка
         tableview->setSortingEnabled(true);
+        tableview->setItemDelegateForColumn(0, new NoteTypeDelegate(tableview));
 
     }
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ СОЗДАНИЕ СОЕДИНЕНИЙ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -313,7 +313,7 @@ void note::createVoiceNote()
 void note::showNote(const QModelIndex & index)
 {   // Слот для просмотра заметки
 
-    QString noteType = notemodel->noteType(index);
+    QString noteType = notemodel->noteType(sortmodel->mapToSource(index));
 
     if("txt" == noteType)
     {       /* Если тип заметки - текстовая, то создается соотвествующее окно */
@@ -333,7 +333,7 @@ void note::showNote(const QModelIndex & index)
         // Получение полного имени файла (путь + имя файла с суффиксом), в зависимости от выбранного элемента в списке заметок
         QString textNoteFilePath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation)
                                     + "/MorningStar" + "/MorningStar_Reliza" + "/TextNote" + "/"
-                                    + notemodel->noteName(index) + '.' + noteType;
+                                    + notemodel->noteName(sortmodel->mapToSource(index)) + '.' + noteType;
         /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ НАСТРОЙКА ОБЪЕКТОВ  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
         showTextNoteWin->setWindowTitle(tr("Show text note"));
@@ -410,7 +410,7 @@ void note::showNote(const QModelIndex & index)
         // Получение полного имени файла (путь + имя файла с суффиксом), в зависимости от выбранного элемента в списке заметок
         QString voiceNoteFilePath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation)
                                     + "/MorningStar" + "/MorningStar_Reliza" + "/VoiceNote" + "/"
-                                    + notemodel->noteName(index) + '.' + noteType;
+                                    + notemodel->noteName(sortmodel->mapToSource(index)) + '.' + noteType;
         /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++ ИНИЦИАЛИЗАЦИЯ ОБЪЕКТОВ ++++++++++++++++++++++++++++++++++++++++++++++++ */
         QVBoxLayout *voiceNoteVLayout = new QVBoxLayout(playVoiceNoteWin);
         QHBoxLayout layoutSlider;
@@ -520,7 +520,6 @@ void note::showNote(const QModelIndex & index)
 
         playVoiceNoteWin->exec();
     }
-
 
 }
 
