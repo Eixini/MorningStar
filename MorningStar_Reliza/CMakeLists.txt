@@ -52,6 +52,8 @@ if(ANDROID)
 
     notemodel.h
     notemodel.cpp
+    notetypedelegate.h
+    notetypedelegate.cpp
 
     morningstar_resources.qrc
 
@@ -83,6 +85,8 @@ else()
 
     notemodel.h
     notemodel.cpp
+    notetypedelegate.h
+    notetypedelegate.cpp
 
     morningstar_resources.qrc
 
