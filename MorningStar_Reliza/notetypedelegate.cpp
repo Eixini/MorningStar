@@ -3,6 +3,8 @@
 #include <QPainter>
 #include <QAbstractItemView>
 #include <QString>
+#include <QIcon>
+#include <QPoint>
 
 NoteTypeDelegate::NoteTypeDelegate(QWidget *parent) {}
 
@@ -12,15 +14,19 @@ void NoteTypeDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
     {
         QString noteType = qvariant_cast<QString>(index.data());
 
+        QPoint iconRend = option.rect.center();
+        iconRend -= QPoint(10,10);
+
         if (noteType == "txt")
         {
-            painter->drawPixmap(option.rect,  QPixmap(":/morningstar_resources/icons/clipboard_icon.png"));
+            painter->drawPixmap(iconRend,  QIcon(":/morningstar_resources/icons/clipboard_icon.png").pixmap(QSize(20,20)));
 
         }
-        if(noteType == "wav")
+        else if(noteType == "wav")
         {
-            painter->drawPixmap(option.rect,  QPixmap(":/morningstar_resources/icons/microphone_icon.png"));
+            painter->drawPixmap(iconRend,  QIcon(":/morningstar_resources/icons/microphone_icon.png").pixmap(QSize(20,20)));
         }
     }
-    QStyledItemDelegate::paint(painter, option, index);
+    else
+        QStyledItemDelegate::paint(painter, option, index);
 }
