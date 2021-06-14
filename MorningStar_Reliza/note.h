@@ -6,7 +6,6 @@
 #include <QAudioInput>
 #include <QAudioDeviceInfo>
 #include <QAudioFormat>
-#include <QValidator>
 
 #include "notemodel.h"
 
