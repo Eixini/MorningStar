@@ -266,6 +266,7 @@ void note::createVoiceNote()
             );
     connect(&recordingStartButton, &QPushButton::clicked, this, &note::recorderStart);
     connect(&recordingStopButton, &QPushButton::clicked, this, &note::recorderStop);
+    connect(&recordingStopButton, &QPushButton::clicked, voiceNoteWin, &QDialog::accept);
 
     /* ====================================================== РАБОТА С ФУНКЦИОНАЛОМ ================================================= */
     audioForm.setChannelCount(2);                          // Количество каналов (1 - моно, 2 - стерео и т.д)
@@ -507,8 +508,8 @@ void note::showNote(const QModelIndex & index)
 
         connect(&audioVolumeLine, &QSlider::valueChanged, mediaPlayer, &QMediaPlayer::setVolume);
         connect(&stopButton, &QPushButton::clicked, playVoiceNoteWin, [&](){mediaPlayer->stop(); });
-        connect(&stopButton, &QPushButton::clicked, playVoiceNoteWin, &QDialog::accept);
         connect(playVoiceNoteWin, &QDialog::finished, playVoiceNoteWin, [&](){mediaPlayer->stop(); });
+        connect(&stopButton, &QPushButton::clicked, playVoiceNoteWin, &QDialog::accept);
 
         /* ...................................................... УПРАВЛЕНИЕ КОМПОНОВКОЙ ................................................ */
 
@@ -533,7 +534,7 @@ void note::showNote(const QModelIndex & index)
 void note::deleteNote()
 {   // Слот для удаления заметки
 
-    QModelIndex curIndex = tableview->selectionModel()->currentIndex();
+    QModelIndex curIndex = sortmodel->mapToSource(tableview->selectionModel()->currentIndex());
     notemodel->removeData(curIndex.row());
 
 }
