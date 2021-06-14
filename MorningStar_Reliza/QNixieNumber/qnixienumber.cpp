@@ -49,7 +49,6 @@ void QNixieNumber::paintEvent(QPaintEvent *)
         for(int i = 0; i < segment_ ; ++i)
             paint.drawPixmap(width_ * i,0, RealNixieNumber[number[i]]);
 
-
 }
 
 int QNixieNumber::split(int number)
