@@ -36,5 +36,7 @@
         <file alias="play_icon.png">morningstar_resource/icons/player/play_icon</file>
         <file alias="pause_icon.png">morningstar_resource/icons/player/pause_icon</file>
         <file alias="stop_icon.png">morningstar_resource/icons/player/stop_icon</file>
+        <file alias="volume_muted_icon.svg">morningstar_resource/icons/player/volume_muted_icon</file>
+        <file alias="volume_max_icon.svg">morningstar_resource/icons/player/volume_max_icon</file>
     </qresource>
 </RCC>
