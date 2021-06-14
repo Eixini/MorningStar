@@ -36,9 +36,9 @@ void QNixieNumber::setSegmentsCount(int value) { segment_ = value; }     // Sett
 
 void QNixieNumber::paintEvent(QPaintEvent *)
 {
-    QNixieNumber::update();                                      // Automatic redrawing
 
     QPainter paint(this);
+    QNixieNumber::update();                                      // Automatic redrawing
 
     /* Based on the selected style, images (numbers) are drawn from the array */
     if(selectMode_ == NIXIE)
