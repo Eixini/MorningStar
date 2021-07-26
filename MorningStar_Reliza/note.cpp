@@ -34,6 +34,16 @@
 #include <QSortFilterProxyModel>
 #include <QItemSelectionModel>
 
+/*      ЧТО НУЖНО ИСПРАВИТЬ:
+
+  - Добавить при создании заметки с одинаковым полным именем (имя файла + суффикс) - вывод сообщения об ошибке + убрать вылет из редактора создания;
+    ! Временно сделал так, что при попытке создания файла с уже существующим именем - для нового файла будет установлено дефолтное имя.
+
+
+  - При прослушиваниии голосовой заметки, если нажать на крестик (закрытие окна) - происходит падение приложения (в Windows OS);
+
+*/
+
 // ::::::::::::::::::::::::::::::::::::::::::::: Заголовки для WAV-файла ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 struct RIFFHeader
 {
@@ -192,7 +202,15 @@ void note::createTextNote()
       if(textNoteTitle.text() != "")
       {
           QString textNoteLoc = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + "/MorningStar" + "/MorningStar_Reliza" + "/TextNote";
-          *nameTextNote = textNoteLoc + "/" + textNoteTitle.text() + ".txt";      // Установка названия для файла из поля для ввода
+
+          if(!textFile.exists(textNoteLoc + "/" + textNoteTitle.text() + ".txt"))
+                *nameTextNote = textNoteLoc + "/" + textNoteTitle.text() + ".txt";      // Установка названия для файла из поля для ввод
+          else
+          {
+              trayicon->showMessage(tr("Text note"), tr("A file with the same name already exists."));
+              generateNameForTextNote();
+          }
+
       }
       else
           generateNameForTextNote();
@@ -259,9 +277,21 @@ void note::createVoiceNote()
     connect(&recordingStartButton,&QPushButton::clicked, this,[&]()
     {
         if(voiceNoteTitle.text() != "")
-            *nameVoiceNote = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + "/MorningStar" + "/MorningStar_Reliza" + "/VoiceNote" + "/" + voiceNoteTitle.text() + ".wav";
+        {
+
+            if(!textFile.exists(QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + "/MorningStar" + "/MorningStar_Reliza" + "/VoiceNote" + "/" + voiceNoteTitle.text() + ".wav"))
+                  *nameVoiceNote = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + "/MorningStar" + "/MorningStar_Reliza" + "/VoiceNote" + "/" + voiceNoteTitle.text() + ".wav";    // Установка названия для файла из поля для ввод
+            else
+            {
+                trayicon->showMessage(tr("Voice note"), tr("A file with the same name already exists."));
+                generateNameForVoiceNote();
+            }
+
+        }
         else
+        {
             generateNameForVoiceNote();
+        }
     }
             );
     connect(&recordingStartButton, &QPushButton::clicked, this, &note::recorderStart);
