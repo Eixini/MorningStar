@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/morningstar_resources/icons">
+        <file alias="door_icon.png">morningstar_images/icons/door_icon</file>
+        <file alias="warning_icon.png">morningstar_images/icons/warning_icon</file>
+        <file alias="ball_icon.png">morningstar_images/icons/ball_icon</file>
+        <file alias="info_icon.png">morningstar_images/icons/info_icon</file>
+        <file alias="clock_icon.png">morningstar_images/icons/clock_icon</file>
+        <file alias="clipboard_icon.png">morningstar_images/icons/clipboard_icon</file>
+        <file alias="timer_icon.png">morningstar_images/icons/timer_icon</file>
+        <file alias="x_icon.png">morningstar_images/icons/x_icon</file>
+        <file alias="apply_icon.png">morningstar_images/icons/apply_icon</file>
+        <file alias="satellite_icon.png">morningstar_images/icons/satellite_icon</file>
+        <file alias="ms_icon.png">morningstar_images/icons/ms_icon</file>
+    </qresource>
+    <qresource prefix="/morningstar_resources/images">
+        <file alias="morningstar_splashscreen.png">morningstar_images/images/morningstar_splashscreen</file>
+        <file alias="zero_image.png">morningstar_images/images/zero_image</file>
+    </qresource>
+</RCC>

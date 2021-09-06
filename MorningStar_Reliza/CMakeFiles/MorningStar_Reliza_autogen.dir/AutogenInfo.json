@@ -1,0 +1,340 @@
+{
+	"BUILD_DIR" : "/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/MorningStar_Reliza_autogen",
+	"CMAKE_BINARY_DIR" : "/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza",
+	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
+	"CMAKE_LIST_FILES" : 
+	[
+		"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/CMakeLists.txt",
+		"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/CMakeFiles/3.20.5/CMakeSystem.cmake",
+		"/usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake",
+		"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/CMakeFiles/3.20.5/CMakeCXXCompiler.cmake",
+		"/usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake",
+		"/usr/share/cmake/Modules/CMakeGenericSystem.cmake",
+		"/usr/share/cmake/Modules/CMakeInitializeConfigs.cmake",
+		"/usr/share/cmake/Modules/Platform/Linux.cmake",
+		"/usr/share/cmake/Modules/Platform/UnixPaths.cmake",
+		"/usr/share/cmake/Modules/CMakeCXXInformation.cmake",
+		"/usr/share/cmake/Modules/CMakeLanguageInformation.cmake",
+		"/usr/share/cmake/Modules/Compiler/Clang-CXX.cmake",
+		"/usr/share/cmake/Modules/Compiler/Clang.cmake",
+		"/usr/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake",
+		"/usr/share/cmake/Modules/Compiler/GNU.cmake",
+		"/usr/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake",
+		"/usr/share/cmake/Modules/Platform/Linux-Clang-CXX.cmake",
+		"/usr/share/cmake/Modules/Platform/Linux-GNU-CXX.cmake",
+		"/usr/share/cmake/Modules/Platform/Linux-GNU.cmake",
+		"/usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake",
+		"/usr/lib64/cmake/Qt5/Qt5ConfigVersion.cmake",
+		"/usr/lib64/cmake/Qt5/Qt5Config.cmake",
+		"/usr/lib64/cmake/Qt5/Qt5ConfigVersion.cmake",
+		"/usr/lib64/cmake/Qt5/Qt5Config.cmake",
+		"/usr/lib64/cmake/Qt5/Qt5ModuleLocation.cmake",
+		"/usr/lib64/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake",
+		"/usr/lib64/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5GuiConfig.cmake",
+		"/usr/lib64/cmake/Qt5Core/Qt5CoreConfigVersion.cmake",
+		"/usr/lib64/cmake/Qt5Core/Qt5CoreConfig.cmake",
+		"/usr/lib64/cmake/Qt5Core/Qt5CoreConfigExtras.cmake",
+		"/usr/lib64/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake",
+		"/usr/lib64/cmake/Qt5Core/Qt5CoreMacros.cmake",
+		"/usr/share/cmake/Modules/CMakeParseArguments.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QComposePlatformInputContextPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QEglFSEmulatorIntegrationPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QEglFSIntegrationPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QEglFSKmsEglDeviceIntegrationPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QEglFSKmsGbmIntegrationPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QEglFSX11IntegrationPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QEvdevKeyboardPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QEvdevMousePlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QEvdevTabletPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QEvdevTouchScreenPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QGtk3ThemePlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QICNSPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QIbusPlatformInputContextPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QJp2Plugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QLibInputPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QLinuxFbIntegrationPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QMinimalEglIntegrationPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QMngPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QSvgIconPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QSvgPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QTgaPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QTiffPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QVirtualKeyboardPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QVncIntegrationPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QWbmpPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QWebpPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QXcbEglIntegrationPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QXcbGlxIntegrationPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QXcbIntegrationPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5Gui_QXdgDesktopPortalThemePlugin.cmake",
+		"/usr/lib64/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake",
+		"/usr/lib64/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake",
+		"/usr/lib64/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake",
+		"/usr/share/cmake/Modules/CMakeParseArguments.cmake",
+		"/usr/lib64/cmake/Qt5Multimedia/Qt5MultimediaConfigVersion.cmake",
+		"/usr/lib64/cmake/Qt5Multimedia/Qt5MultimediaConfig.cmake",
+		"/usr/lib64/cmake/Qt5Network/Qt5NetworkConfigVersion.cmake",
+		"/usr/lib64/cmake/Qt5Network/Qt5NetworkConfig.cmake",
+		"/usr/lib64/cmake/Qt5Network/Qt5Network_QConnmanEnginePlugin.cmake",
+		"/usr/lib64/cmake/Qt5Network/Qt5Network_QGenericEnginePlugin.cmake",
+		"/usr/lib64/cmake/Qt5Network/Qt5Network_QNetworkManagerEnginePlugin.cmake",
+		"/usr/lib64/cmake/Qt5Multimedia/Qt5Multimedia_CameraBinServicePlugin.cmake",
+		"/usr/lib64/cmake/Qt5Multimedia/Qt5Multimedia_QAlsaPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Multimedia/Qt5Multimedia_QGstreamerAudioDecoderServicePlugin.cmake",
+		"/usr/lib64/cmake/Qt5Multimedia/Qt5Multimedia_QGstreamerCaptureServicePlugin.cmake",
+		"/usr/lib64/cmake/Qt5Multimedia/Qt5Multimedia_QGstreamerPlayerServicePlugin.cmake",
+		"/usr/lib64/cmake/Qt5Multimedia/Qt5Multimedia_QM3uPlaylistPlugin.cmake",
+		"/usr/lib64/cmake/Qt5Multimedia/Qt5Multimedia_QPulseAudioPlugin.cmake",
+		"/usr/share/cmake/Modules/FindCURL.cmake",
+		"/usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake",
+		"/usr/share/cmake/Modules/FindPackageMessage.cmake",
+		"/usr/share/cmake/Modules/FindPkgConfig.cmake",
+		"/usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake",
+		"/usr/share/cmake/Modules/FindPackageMessage.cmake",
+		"/usr/share/cmake/Modules/SelectLibraryConfigurations.cmake",
+		"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/morningstar_resources.qrc",
+		"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/QNixieNumber/qnixienumber_resource.qrc"
+	],
+	"CMAKE_SOURCE_DIR" : "/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza",
+	"DEP_FILE" : "",
+	"DEP_FILE_RULE_NAME" : "",
+	"HEADERS" : 
+	[
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/QNixieNumber/qnixienumber.h",
+			"MU",
+			"UALDYJC4H4/moc_qnixienumber.cpp",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/externals/date/date.h",
+			"MU",
+			"UH6ANYTYW3/moc_date.cpp",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/externals/date/tz.h",
+			"MU",
+			"UH6ANYTYW3/moc_tz.cpp",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/externals/date/tz_private.h",
+			"MU",
+			"UH6ANYTYW3/moc_tz_private.cpp",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/info.h",
+			"MU",
+			"EWIEGA46WW/moc_info.cpp",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/morningstar.h",
+			"MU",
+			"EWIEGA46WW/moc_morningstar.cpp",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/nettime.h",
+			"MU",
+			"EWIEGA46WW/moc_nettime.cpp",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/note.h",
+			"MU",
+			"EWIEGA46WW/moc_note.cpp",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/notemodel.h",
+			"MU",
+			"EWIEGA46WW/moc_notemodel.cpp",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/notetypedelegate.h",
+			"MU",
+			"EWIEGA46WW/moc_notetypedelegate.cpp",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/radio.h",
+			"MU",
+			"EWIEGA46WW/moc_radio.cpp",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/randnum.h",
+			"MU",
+			"EWIEGA46WW/moc_randnum.cpp",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/settings.h",
+			"MU",
+			"EWIEGA46WW/moc_settings.cpp",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/textanalysis.h",
+			"MU",
+			"EWIEGA46WW/moc_textanalysis.cpp",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/timer.h",
+			"MU",
+			"EWIEGA46WW/moc_timer.cpp",
+			null
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/MorningStar_Reliza_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/MorningStar_Reliza_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : 
+	[
+		"QT_CORE_LIB",
+		"QT_GUI_LIB",
+		"QT_MULTIMEDIA_LIB",
+		"QT_NETWORK_LIB",
+		"QT_NO_DEBUG",
+		"QT_WIDGETS_LIB"
+	],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza",
+		"/usr/include/qt5",
+		"/usr/include/qt5/QtWidgets",
+		"/usr/include/qt5/QtGui",
+		"/usr/include/qt5/QtCore",
+		"/usr/lib64/qt5/mkspecs/linux-g++",
+		"/usr/include/qt5/QtMultimedia",
+		"/usr/include/qt5/QtNetwork",
+		"/usr/include",
+		"/usr/include/c++/11",
+		"/usr/include/c++/11/x86_64-redhat-linux",
+		"/usr/include/c++/11/backward",
+		"/usr/local/include",
+		"/usr/lib64/clang/12.0.0/include"
+	],
+	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE", "Q_NAMESPACE_EXPORT" ],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : false,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/usr/bin/clang++",
+		"-dM",
+		"-E",
+		"-c",
+		"/usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/MorningStar_Reliza_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 2,
+	"PARSE_CACHE_FILE" : "/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/CMakeFiles/MorningStar_Reliza_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/usr/lib64/qt5/bin/moc",
+	"QT_UIC_EXECUTABLE" : "/usr/lib64/qt5/bin/uic",
+	"QT_VERSION_MAJOR" : 5,
+	"QT_VERSION_MINOR" : 15,
+	"SETTINGS_FILE" : "/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/CMakeFiles/MorningStar_Reliza_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/QNixieNumber/qnixienumber.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/externals/date/tz.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/info.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/main.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/morningstar.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/nettime.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/note.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/notemodel.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/notetypedelegate.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/radio.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/randnum.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/settings.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/textanalysis.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/timer.cpp",
+			"MU",
+			null
+		]
+	],
+	"UIC_OPTIONS" : [],
+	"UIC_SEARCH_PATHS" : [],
+	"UIC_SKIP" : [],
+	"UIC_UI_FILES" : [],
+	"VERBOSITY" : 0
+}

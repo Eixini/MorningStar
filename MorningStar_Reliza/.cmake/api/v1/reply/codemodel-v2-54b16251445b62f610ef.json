@@ -1,0 +1,68 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "MorningStar_Reliza",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "MorningStar_Reliza::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MorningStar_Reliza-Release-62dad8893ca06886b6b3.json",
+					"name" : "MorningStar_Reliza",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MorningStar_Reliza_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MorningStar_Reliza_autogen-Release-35851ce7a63bdb2d2dab.json",
+					"name" : "MorningStar_Reliza_autogen",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza",
+		"source" : "/home/eixini/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 2
+	}
+}

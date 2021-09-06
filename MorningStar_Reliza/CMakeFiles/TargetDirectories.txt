@@ -1,0 +1,4 @@
+/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/CMakeFiles/rebuild_cache.dir
+/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/CMakeFiles/edit_cache.dir
+/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/CMakeFiles/MorningStar_Reliza.dir
+/home/eixini/Рабочий стол/Eixini/Qt/Projects/MorningStar/MorningStar/MorningStar_Reliza/CMakeFiles/MorningStar_Reliza_autogen.dir
